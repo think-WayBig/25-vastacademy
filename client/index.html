@@ -28,202 +28,66 @@
     <section class="header">
 
     </section>
-
+    <!-- 
     <div class="selection-bar">
         <div class="container-sort">
             <select name="sort_by" id="sort_by">
-              <option value=""> Sort by: Featured </option>
-              <option value="Duration"> Duration </option>
-              <option value="priceAsc">Price - Low to High</option>
-              <option value="priceDesc">Price - High to Low</option>
+                <option value=""> Sort by: Featured </option>
+                <option value="Duration"> Duration </option>
+                <option value="priceAsc">Price - Low to High</option>
+                <option value="priceDesc">Price - High to Low</option>
             </select>
-          </div>
+        </div>
 
-          <div class="search-bar">
+        <div class="search-bar">
             <input type="text" placeholder="Search" class="search-input">
             <div class="search-icon">
                 Search
             </div>
-          </div>
+        </div>
 
-          <div class="container-sort">
+        <div class="container-sort">
             <select name="sort_by" id="sort_by">
-              <option value=""> Sort by: Featured </option>
-              <option value="Duration"> Duration </option>
-              <option value="priceAsc">Price - Low to High</option>
-              <option value="priceDesc">Price - High to Low</option>
+                <option value=""> Sort by: Featured </option>
+                <option value="Duration"> Duration </option>
+                <option value="priceAsc">Price - Low to High</option>
+                <option value="priceDesc">Price - High to Low</option>
             </select>
-          </div>
-    </div> 
+        </div>
+    </div> -->
 
-    <section class="main">
+    <section id="main-container" class="main">
         <div class="component">
             <div class="upper">
                 <div class="img">
-
+                    <img src="https://fakeimg.pl/150x150">
                 </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
+                <div class="right">
+                    <p>Project ID: 00001</p>
+                    <h1>Client Name</h1>
+                    <h4><a href="">https://www.clientname.com</a></h4>
+                    <div id="category">
+                        <p class="category cat1">Category1</p>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
+                <h3>Project Status</h3>
+                <p class="status">Last Testing Stage - Deadline 20th March</p>
                 <div class="progress-bar">
                     <div class="progress">
                         <p>38%</p>
                     </div>
                 </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+                <p onclick="detailsPopup('00001')" class="check-details">
+                    Check Details<i style="margin-left: 5px;" class="fa-solid fa-arrow-up-right-from-square"></i>
+                </p>
             </div>
         </div>
-
-        <div class="component">
-            <div class="upper">
-                <div class="img">
-
-                </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
-                <div class="progress-bar">
-                    <div class="progress">
-                        <p>38%</p>
-                    </div>
-                </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-            </div>
-        </div>
-
-
-        <div class="component">
-            <div class="upper">
-                <div class="img">
-
-                </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
-                <div class="progress-bar">
-                    <div class="progress">
-                        <p>38%</p>
-                    </div>
-                </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-            </div>
-        </div>
-
-
-        <div class="component">
-            <div class="upper">
-                <div class="img">
-
-                </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
-                <div class="progress-bar">
-                    <div class="progress">
-                        <p>38%</p>
-                    </div>
-                </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-            </div>
-        </div>
-
-
-        <div class="component">
-            <div class="upper">
-                <div class="img">
-
-                </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
-                <div class="progress-bar">
-                    <div class="progress">
-                        <p>38%</p>
-                    </div>
-                </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-            </div>
-        </div>
-
-
-        <div class="component">
-            <div class="upper">
-                <div class="img">
-
-                </div>
-                <div>
-                    <p class="project-id">Project ID: 00001</p>
-                    <h1 class="clientname">Client Name</h1>
-                    <h4 class="domain"><a href="">https://www.clientname.com</a></h4>
-                    <div>
-                        <p class="category">Category1</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lower">
-                <h3 class="project-status">Project Status</h3>
-                <p class="staging">Last Testing Stage - Deadline 20th March</p>
-                <div class="progress-bar">
-                    <div class="progress">
-                        <p>38%</p>
-                    </div>
-                </div>
-                <p class="check-details"><a href="">Check Details <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
-            </div>
-        </div>
-
     </section>
+
+    <script src="./script.js" />
 </body>
 
 </html>

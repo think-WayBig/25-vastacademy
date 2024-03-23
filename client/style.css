@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 section.header {
@@ -10,7 +10,7 @@ section.header {
     background-color: #051747;
 }
 
-.selection-bar{
+.selection-bar {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -19,10 +19,11 @@ section.header {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.container-sort select{
+.container-sort select {
     border: none;
 }
-.search-bar{
+
+.search-bar {
     display: flex;
     height: 40px;
     width: 600px;
@@ -30,7 +31,7 @@ section.header {
     border-radius: 4px;
 }
 
-.search-input{
+.search-input {
     width: 100%;
     border: none;
     font-size: 1rem;
@@ -38,106 +39,132 @@ section.header {
     border-bottom-left-radius: 4px;
 }
 
-.search-icon{
+.search-icon {
     width: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 section.main {
     display: flex;
-    justify-content: space-evenly;
     flex-wrap: wrap;
-    margin-top: 3rem;
+    justify-content: center;
+    gap: 0 30px;
+    padding: 30px 0;
 }
 
 .component {
-    width: 30%;
-    height: 320px;
+    width: 500px;
     border-radius: 16px;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     margin-bottom: 3rem;
-    padding: 20px;
+    padding: 30px 20px;
+    padding-top: 20px;
     box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    zoom: 0.9;
 }
 
-.upper{
+.upper {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
 
-.img{
-    width: 100px;
-    height: 100px;
+.upper .img {
+    width: 110px;
+    height: 110px;
     background-color: rgba(128, 128, 128, 0.863);
     border-radius: 50%;
     margin-top: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.bar{
-    margin-top: 15px;
+.upper .img img {
+    width: 110px;
+    height: 110px;
 }
-.project-id{
+
+.upper .right p {
     text-align: right;
-    margin-top: -5px;
+    font-size: 15px;
 }
 
-.clientname{
+.upper .right h1 {
     margin-top: 8px;
-    font-size: 2rem;
+    font-size: 34px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.upper .right h4 {
     text-align: right;
 }
 
-.category{
-    display: inline-block;
-    height: 30px;
+.upper .right h4 a {
+    color: black;
+    text-decoration: none;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.upper .right #category {
+    display: flex;
+    justify-content: end;
+    font-weight: bold;
+}
+
+.upper .right .category {
     width: 110px;
     margin-top: 18px;
     text-align: center;
     border-radius: 20px;
     padding: 5px;
     background-color: rgba(170, 166, 166, 0.664);
+    font-size: 14px;
 }
 
-.project-status{
+.upper .right .cat1 {
+    background-color: #051747;
+    color: white;
+}
+
+.lower h3 {
     margin-top: 10px;
 }
 
-.staging{
+.lower .status {
     margin-top: 10px;
     margin-bottom: 15px;
 }
 
-.check-details{
+.lower .check-details {
     text-align: right;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
-.check-details a{
-    text-decoration: none;
-    color: black;
-}
-
-
-.domain a{
-    color: black;
-    text-decoration: none;
-    font-weight: 200;
-}
-
-.progress-bar {
+.lower .progress-bar {
     width: 100%;
     background-color: rgba(170, 166, 166, 0.664);
     overflow: hidden;
     margin-bottom: 15px;
 }
 
-.progress {
+.lower .progress {
     width: 38%;
     height: 20px;
     line-height: 20px;
     text-align: center;
     color: white;
     background-color: black;
+    font-weight: 500;
+    font-size: 14px;
 }
