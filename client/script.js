@@ -108,3 +108,4 @@ function generateDynamicComponent(projectID, clientName, clientURL, category, st
 }
 
 generateDynamicComponent('00002', 'Client Name', 'https://www.hi.com', 'Portfolio', 'Last Testing Stage - Deadline 25th March', '70%', 'https://fakeimg.pl/100x100')
+
