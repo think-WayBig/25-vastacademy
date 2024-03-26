@@ -107,5 +107,17 @@ function generateDynamicComponent(projectID, clientName, clientURL, category, st
     mainContainer.append(componentDiv);
 }
 
+async function dataCall() {
+    try {
+        let res = await fetch("http://localhost:3000/projects");
+        let data = await res.json();
+        console.log(data.pro_id);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+dataCall();
+
 generateDynamicComponent('00002', 'Client Name', 'https://www.hi.com', 'Portfolio', 'Last Testing Stage - Deadline 25th March', '70%', 'https://fakeimg.pl/100x100')
 
