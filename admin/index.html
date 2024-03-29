@@ -1,11 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <title>Client Portal - VA Computers</title>
+
+    <!--========= Meta Tags =========-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!--========= Google Fonts =========-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--========= Font Awesome ==========-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: grid;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            outline: none;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#051747" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-position: right 10px top 50%;
+            background-repeat: no-repeat;
+        }
+
+        button {
+            width: 100%;
+            background-color: #051747;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 12px 0;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #07336e;
+        }
+
+        ::placeholder {
+            color: #999;
+        }
+
+        /* Style for the container */
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 15px;
+            /* Adjust as needed */
+        }
+
+        /* Style for the button */
+        .file-input-label {
+            background-color: #051747;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        /* Style for the button on hover */
+        .file-input-label:hover {
+            background-color: #07336e;
+        }
+
+        /* Style for the image preview */
+        .image-preview {
+            width: 100%;
+            max-width: 300px;
+            /* Adjust as needed */
+            margin-top: 10px;
+        }
+
+        /* Hide image preview by default */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <section>
+        <div class="file-input-container">
+            <label for="pro_logo" class="file-input-label">Choose File</label>
+            <input id="pro_logo" type="file" class="file-input hidden" accept="image/*"
+                onchange="previewImage(event)" />
+        </div>
+        <img id="imagePreview" class="image-preview hidden" /> <br>
+
+        <input id="pro_id" type="number" placeholder="Project ID" />
+        <input id="client_name" type="text" placeholder="Client Name" />
+        <input id="domain" type="text" placeholder="Domain Name" />
+        <select id="category">
+            <option value="Dynamic">Dynamic</option>
+            <option value="Portfolio">Portfolio</option>
+            <option value="Ecommerce">Ecommerce</option>
+            <option value="Static">Static</option>
+        </select>
+        <input id="pro_status" type="text" placeholder="Status" />
+        <select id="progress">
+            <option value="1">Stage 1</option>
+            <option value="2">Stage 2</option>
+            <option value="3">Stage 3</option>
+            <option value="4">Stage 4</option>
+            <option value="5">Stage 5</option>
+            <option value="6">Stage 6</option>
+        </select>
+        <button id="submit">Submit</button>
+    </section>
+
+    <script>
+        async function sendData() {
+            let pro_id = document.getElementById("pro_id");
+            let client_name = document.getElementById("client_name");
+            let domain = document.getElementById("domain");
+            let category = document.getElementById("category");
+            let pro_status = document.getElementById("pro_status");
+            let progress = document.getElementById("progress");
+
+            let data = {
+                pro_id: pro_id,
+                client_name: client_name,
+                domain: domain,
+                category: category,
+                pro_status: pro_status,
+                progress: progress,
+                pro_logo: "https://fakeimg.pl/100x100"
+            }
+            let res;
+
+            try {
+                let res = await fetch("http://127.0.0.1:3000/newProject", {
+                    method: "POST",
+                    mode: "cors",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    redirect: "follow",
+                    referrerPolicy: "no-referrer",
+                    body: JSON.stringify(data),
+                });
+
+                // Check if the response is successful (HTTP status code 200)
+                if (res.ok) {
+                    // Parse the JSON content of the response
+                    let jsonResponse = await res.json();
+                    console.log(jsonResponse);
+                    console.log("Data Sent successfully!");
+                } else {
+                    // Handle error cases
+                    console.log("Error:", res.statusText);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+            console.log(res.json());
+            console.log("Data Sent successfully!");
+        }
+
+        document.getElementById("submit").addEventListener('click', sendData);
+
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                }
+
+                let file1 = reader.readAsDataURL(input.files[0]);
+                preview.classList.remove('hidden');
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
+
 </html>

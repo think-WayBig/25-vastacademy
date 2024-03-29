@@ -30,9 +30,14 @@ app.post('/newProject', (req, res) => {
             "pro_logo": pro_logo
         })
 
-        res.send("Data sent successfully");
+        res.json({
+            msg: "Data sent successfully!"
+        });
     } catch (error) {
         console.log(error);
+        res.json({
+            msg: "Data not sent!"
+        });
     }
 })
 
