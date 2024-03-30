@@ -31,13 +31,50 @@ app.post('/newProject', (req, res) => {
         })
 
         res.json({
-            msg: "Data sent successfully!"
+            msg: "Data sent successfully!",
+            data: clientData
         });
     } catch (error) {
         console.log(error);
         res.json({
             msg: "Data not sent!"
         });
+    }
+})
+
+//Update client data
+app.put('/updateProject', (req, res) => {
+    let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = req.body;
+    try {
+        let index = clientData.findIndex(project => project.pro_id === pro_id);
+        if (index !== -1) {
+            clientData[index].category = category;
+            clientData[index].domain = domain;
+            clientData[index].client_name = client_name;
+            clientData[index].pro_status = pro_status;
+            clientData[index].progress = progress;
+            clientData[index].pro_logo = pro_logo;
+
+            res.json({
+                msg: "Project updated successfully",
+                status: "success",
+                data: clientData[index]
+            });
+        } else {
+            // Send response if project with pro_id is not found
+            res.status(404).json({
+                msg: "Project not found",
+                status: "error",
+                data: req.body
+            });
+        }
+
+    } catch (error) {
+        res.json({
+            msg: error.message,
+            status: error.status,
+            data: req.body
+        })
     }
 })
 

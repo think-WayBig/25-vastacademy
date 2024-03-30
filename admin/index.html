@@ -23,7 +23,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -165,18 +165,18 @@
             let progress = document.getElementById("progress");
 
             let data = {
-                pro_id: pro_id,
-                client_name: client_name,
-                domain: domain,
-                category: category,
-                pro_status: pro_status,
-                progress: progress,
-                pro_logo: "https://fakeimg.pl/100x100"
+                "pro_id": pro_id.value,
+                "client_name": client_name.value,
+                "domain": domain.value,
+                "category": category.value,
+                "pro_status": pro_status.value,
+                "progress": progress.value,
+                "pro_logo": "https://fakeimg.pl/100x100"
             }
             let res;
 
             try {
-                let res = await fetch("http://127.0.0.1:3000/newProject", {
+                res = await fetch("http://127.0.0.1:3000/newProject", {
                     method: "POST",
                     mode: "cors",
                     cache: "no-cache",
@@ -202,9 +202,6 @@
             } catch (error) {
                 console.log(error);
             }
-
-            console.log(res.json());
-            console.log("Data Sent successfully!");
         }
 
         document.getElementById("submit").addEventListener('click', sendData);
