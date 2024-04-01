@@ -263,10 +263,10 @@
 
             <ul class="list-unstyled components">
                 <p>Navigate</p>
-                <li class="active">
+                <li>
                     <a href="./index.html">New Project</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="./updateProject.html">Update Project</a>
                 </li>
                 <!-- <li>
@@ -337,7 +337,8 @@
                 </div>
             </nav>
 
-            <h2 class="pb-4">Add New Project</h2>
+            <h2>Update Project</h2>
+            <p>Add Project ID of the project to be updated</p>
             <div>
                 <style>
                     section.new-container {
@@ -440,7 +441,14 @@
                     </div>
                     <img id="imagePreview" class="image-preview hidden" /> <br>
 
-                    <input id="pro_id" type="number" placeholder="Project ID" />
+                    <div style="display: flex; justify-content: center;">
+                        <div style="width: 50%;">
+                            <input id="pro_id" type="number" placeholder="Project ID" />
+                        </div>
+                        <div style="width: 50%;">
+                            <button id="get">Get</button>
+                        </div>
+                    </div>
                     <input id="client_name" type="text" placeholder="Client Name" />
                     <input id="domain" type="text" placeholder="Domain Name" />
                     <select id="category">
@@ -563,14 +571,51 @@
         }
         loginAllow();
 
-        async function sendData() {
-            let pro_id = document.getElementById("pro_id");
-            let client_name = document.getElementById("client_name");
-            let domain = document.getElementById("domain");
-            let category = document.getElementById("category");
-            let pro_status = document.getElementById("pro_status");
-            let progress = document.getElementById("progress");
+        let pro_id = document.getElementById("pro_id");
+        let client_name = document.getElementById("client_name");
+        let domain = document.getElementById("domain");
+        let category = document.getElementById("category");
+        let pro_status = document.getElementById("pro_status");
+        let progress = document.getElementById("progress");
 
+        async function getData() {
+            if (pro_id.value == null || pro_id.value == undefined || pro_id.value == "") {
+                toast("Enter Project ID");
+                return;
+            }
+            let res;
+            try {
+                res = await fetch("http://127.0.0.1:3000/projects/" + pro_id.value);
+                let jsonResponse;
+                if (res.ok) {
+                    jsonResponse = await res.json();
+                    console.log(jsonResponse);
+                    toast("Data Fetched!");
+                    let client_name_get = jsonResponse.data.client_name;
+                    let domain_get = jsonResponse.data.domain;
+                    let category = jsonResponse.data.category;
+                    let pro_status_get = jsonResponse.data.pro_status;
+                    let progress_get = jsonResponse.data.progress;
+                    console.log(client_name_get);
+                    client_name.value = client_name_get;
+                    domain.value = domain_get;
+                    category.value = category_get;
+                    pro_status.value = pro_status_get;
+                    progress.value = progress_get;
+                } else if (jsonResponse.data == '0') {
+                    toast("Project not found!");
+                } else {
+                    // Handle error cases
+                    console.log("Error:", res.statusText);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        document.getElementById("get").addEventListener("click", getData);
+
+        async function sendData() {
             let data = {
                 "pro_id": pro_id.value,
                 "client_name": client_name.value,
@@ -583,7 +628,7 @@
             let res;
 
             try {
-                res = await fetch("http://127.0.0.1:3000/newProject", {
+                res = await fetch("http://127.0.0.1:3000/projects/", {
                     method: "POST",
                     mode: "cors",
                     cache: "no-cache",

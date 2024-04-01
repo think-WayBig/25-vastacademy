@@ -16,6 +16,29 @@ app.get('/projects', (req, res) => {
     }
 })
 
+//Get individual project
+app.get('/projects/:projectId', (req, res) => {
+    try {
+        let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
+        if (index != -1) {
+            res.json({
+                data: clientData[index],
+                msg: "Request Successful!"
+            });
+        } else {
+            res.json({
+                data: "0"
+            });
+        }
+    } catch (error) {
+        res.json({
+            msg: error.message,
+            status: error.status,
+            data: req.body
+        })
+    }
+})
+
 //Create a new project
 app.post('/newProject', (req, res) => {
     let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = req.body;
