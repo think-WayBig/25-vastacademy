@@ -5,7 +5,7 @@
         "domain": "https://www.vatechnologies.com",
         "category": "Ecommerce",
         "pro_status": "Last Testing Stage - Deadline 25th March",
-        "progress": "70%",
+        "progress": "1",
         "pro_logo": "https://fakeimg.pl/100x100"
     },
     {
@@ -14,7 +14,7 @@
         "domain": "https://www.vatechnologies.com",
         "category": "Ecommerce",
         "pro_status": "Last Testing Stage - Deadline 25th March",
-        "progress": "90%",
+        "progress": "2",
         "pro_logo": "https://fakeimg.pl/100x150"
     },
     {
@@ -23,7 +23,7 @@
         "domain": "https://www.vatechnologies.com",
         "category": "Ecommerce",
         "pro_status": "Last Testing Stage - Deadline 25th March",
-        "progress": "20%",
+        "progress": "1",
         "pro_logo": "https://fakeimg.pl/100x100"
     },
     {
@@ -32,7 +32,7 @@
         "domain": "https://www.vatechnologies.com",
         "category": "Ecommerce",
         "pro_status": "Last Testing Stage - Deadline 25th March",
-        "progress": "60%",
+        "progress": "3",
         "pro_logo": "https://fakeimg.pl/100x100"
     },
     {
@@ -41,7 +41,7 @@
         "domain": "https://www.vatechnologies.com",
         "category": "Ecommerce",
         "pro_status": "Last Testing Stage - Deadline 25th March",
-        "progress": "40%",
+        "progress": "4",
         "pro_logo": "https://fakeimg.pl/100x100"
     }
 ]

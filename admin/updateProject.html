@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard | WIMT</title>
+    <title>Admin Dashboard | VA Computers</title>
 
     <!--=== Meta Tags ===-->
     <meta charset="UTF-8">
@@ -258,7 +258,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>WIMT Admin</h3>
+                <h3>VA Computers Admin</h3>
             </div>
 
             <ul class="list-unstyled components">
@@ -268,6 +268,9 @@
                 </li>
                 <li class="active">
                     <a href="./updateProject.html">Update Project</a>
+                </li>
+                <li>
+                    <a href="./deleteProject.html">Delete Project</a>
                 </li>
                 <!-- <li>
                     <a href="./password_requests.html">Password Requests</a>
@@ -346,7 +349,7 @@
                         padding: 30px;
                         border-radius: 10px;
                         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-                        width: 300px;
+                        width: 500px;
                         display: grid;
                     }
 
@@ -441,11 +444,11 @@
                     </div>
                     <img id="imagePreview" class="image-preview hidden" /> <br>
 
-                    <div style="display: flex; justify-content: center;">
+                    <div style="display: flex; justify-content: space-between;">
                         <div style="width: 50%;">
                             <input id="pro_id" type="number" placeholder="Project ID" />
                         </div>
-                        <div style="width: 50%;">
+                        <div style="width: 40%;">
                             <button id="get">Get</button>
                         </div>
                     </div>
@@ -587,25 +590,24 @@
             try {
                 res = await fetch("http://127.0.0.1:3000/projects/" + pro_id.value);
                 let jsonResponse;
-                if (res.ok) {
-                    jsonResponse = await res.json();
-                    console.log(jsonResponse);
+                jsonResponse = await res.json();
+                console.log(jsonResponse)
+                if (jsonResponse.check == 1) {
                     toast("Data Fetched!");
                     let client_name_get = jsonResponse.data.client_name;
                     let domain_get = jsonResponse.data.domain;
-                    let category = jsonResponse.data.category;
+                    let category_get = jsonResponse.data.category;
                     let pro_status_get = jsonResponse.data.pro_status;
                     let progress_get = jsonResponse.data.progress;
-                    console.log(client_name_get);
+                    console.log(client_name_get, domain_get, category_get, pro_status_get, progress_get);
                     client_name.value = client_name_get;
                     domain.value = domain_get;
                     category.value = category_get;
                     pro_status.value = pro_status_get;
                     progress.value = progress_get;
-                } else if (jsonResponse.data == '0') {
+                } else if (jsonResponse.check == 2) {
                     toast("Project not found!");
                 } else {
-                    // Handle error cases
                     console.log("Error:", res.statusText);
                 }
             } catch (error) {
@@ -628,8 +630,8 @@
             let res;
 
             try {
-                res = await fetch("http://127.0.0.1:3000/projects/", {
-                    method: "POST",
+                res = await fetch("http://127.0.0.1:3000/updateProject/", {
+                    method: "PUT",
                     mode: "cors",
                     cache: "no-cache",
                     credentials: "same-origin",
@@ -646,7 +648,7 @@
                     // Parse the JSON content of the response
                     let jsonResponse = await res.json();
                     console.log(jsonResponse);
-                    toast("Data Sent!");
+                    toast("Data Updated!");
                 } else {
                     // Handle error cases
                     console.log("Error:", res.statusText);

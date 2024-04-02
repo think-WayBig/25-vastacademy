@@ -109,7 +109,7 @@ function generateDynamicComponent(projectID, clientName, clientURL, category, st
 
 async function dataCall() {
     try {
-        let res = await fetch("http://localhost:3000/projects");
+        let res = await fetch("http://localhost:3000/getProjects");
         let data = await res.json();
         data.forEach(client => {
             let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = client;

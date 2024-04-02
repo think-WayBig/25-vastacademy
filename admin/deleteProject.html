@@ -263,13 +263,13 @@
 
             <ul class="list-unstyled components">
                 <p>Navigate</p>
-                <li class="active">
+                <li>
                     <a href="./index.html">New Project</a>
                 </li>
                 <li>
                     <a href="./updateProject.html">Update Project</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="./deleteProject.html">Delete Project</a>
                 </li>
                 <!-- <li>
@@ -340,7 +340,8 @@
                 </div>
             </nav>
 
-            <h2 class="pb-4">Add New Project</h2>
+            <h2>Update Project</h2>
+            <p>Add Project ID of the project to be updated</p>
             <div>
                 <style>
                     section.new-container {
@@ -348,7 +349,7 @@
                         padding: 30px;
                         border-radius: 10px;
                         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-                        width: 300px;
+                        width: 500px;
                         display: grid;
                     }
 
@@ -443,25 +444,14 @@
                     </div>
                     <img id="imagePreview" class="image-preview hidden" /> <br>
 
-                    <input id="pro_id" type="number" placeholder="Project ID" />
-                    <input id="client_name" type="text" placeholder="Client Name" />
-                    <input id="domain" type="text" placeholder="Domain Name" />
-                    <select id="category">
-                        <option value="Dynamic">Dynamic</option>
-                        <option value="Portfolio">Portfolio</option>
-                        <option value="Ecommerce">Ecommerce</option>
-                        <option value="Static">Static</option>
-                    </select>
-                    <input id="pro_status" type="text" placeholder="Status" />
-                    <select id="progress">
-                        <option value="1">Stage 1</option>
-                        <option value="2">Stage 2</option>
-                        <option value="3">Stage 3</option>
-                        <option value="4">Stage 4</option>
-                        <option value="5">Stage 5</option>
-                        <option value="6">Stage 6</option>
-                    </select>
-                    <button id="submit">Submit</button>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="width: 50%;">
+                            <input id="pro_id" type="number" placeholder="Project ID" />
+                        </div>
+                        <div style="width: 40%;">
+                            <button id="delete">Delete</button>
+                        </div>
+                    </div>
                 </section>
             </div>
 
@@ -566,28 +556,16 @@
         }
         loginAllow();
 
-        async function sendData() {
-            let pro_id = document.getElementById("pro_id");
-            let client_name = document.getElementById("client_name");
-            let domain = document.getElementById("domain");
-            let category = document.getElementById("category");
-            let pro_status = document.getElementById("pro_status");
-            let progress = document.getElementById("progress");
-
-            let data = {
-                "pro_id": pro_id.value,
-                "client_name": client_name.value,
-                "domain": domain.value,
-                "category": category.value,
-                "pro_status": pro_status.value,
-                "progress": progress.value,
-                "pro_logo": "https://fakeimg.pl/100x100"
+        async function deleteData() {
+            if (pro_id.value == null || pro_id.value == undefined || pro_id.value == "") {
+                toast("Enter Project ID");
+                return;
             }
+            console.log(pro_id.value);
             let res;
-
             try {
-                res = await fetch("http://127.0.0.1:3000/newProject", {
-                    method: "POST",
+                res = await fetch("http://127.0.0.1:3000/deleteProject/" + pro_id.value, {
+                    method: "DELETE",
                     mode: "cors",
                     cache: "no-cache",
                     credentials: "same-origin",
@@ -596,17 +574,16 @@
                     },
                     redirect: "follow",
                     referrerPolicy: "no-referrer",
-                    body: JSON.stringify(data),
                 });
 
-                // Check if the response is successful (HTTP status code 200)
-                if (res.ok) {
-                    // Parse the JSON content of the response
-                    let jsonResponse = await res.json();
-                    console.log(jsonResponse);
-                    toast("Data Sent!");
+                let jsonResponse;
+                jsonResponse = await res.json();
+                console.log(jsonResponse)
+                if (jsonResponse.check == 1) {
+                    toast("Deleted Successfully!");
+                } else if (jsonResponse.check == 2) {
+                    toast("Project not found!");
                 } else {
-                    // Handle error cases
                     console.log("Error:", res.statusText);
                 }
             } catch (error) {
@@ -614,26 +591,7 @@
             }
         }
 
-        document.getElementById("submit").addEventListener('click', sendData);
-
-        function previewImage(event) {
-            var input = event.target;
-            var preview = document.getElementById('imagePreview');
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                }
-
-                let file1 = reader.readAsDataURL(input.files[0]);
-                preview.classList.remove('hidden');
-            } else {
-                preview.src = '';
-                preview.classList.add('hidden');
-            }
-        }
+        document.getElementById("delete").addEventListener("click", deleteData);
 
         function logout() {
             localStorage.removeItem('VaAdminId');

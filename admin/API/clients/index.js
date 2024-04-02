@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //The first route
-app.get('/projects', (req, res) => {
+app.get('/getProjects', (req, res) => {
     try {
         res.send(clientData);
     } catch (error) {
@@ -17,24 +17,25 @@ app.get('/projects', (req, res) => {
 })
 
 //Get individual project
-app.get('/projects/:projectId', (req, res) => {
+app.get('/getProject/:projectId', (req, res) => {
     try {
         let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
         if (index != -1) {
             res.json({
                 data: clientData[index],
-                msg: "Request Successful!"
+                check: 1    // Data successful
             });
         } else {
             res.json({
-                data: "0"
+                check: 2    // Not Found
             });
         }
     } catch (error) {
         res.json({
             msg: error.message,
             status: error.status,
-            data: req.body
+            data: req.body,
+            check: 0    //Data Error
         })
     }
 })
@@ -97,6 +98,32 @@ app.put('/updateProject', (req, res) => {
             msg: error.message,
             status: error.status,
             data: req.body
+        })
+    }
+})
+
+app.delete('/deleteProject/:projectId', (req, res) => {
+    try {
+        let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
+        if (index == -1) {
+            res.json({
+                check: 2 // Not Found
+            })
+            return;
+        }
+
+        if (index != -1) {
+            clientData.splice(index, 1);
+            res.json({
+                check: 1 // Project found
+            })
+        }
+    } catch (error) {
+        res.json({
+            msg: error.message,
+            status: error.status,
+            data: req.params.projectId,
+            check: 0    //Data Error
         })
     }
 })

@@ -169,3 +169,15 @@ section.main {
     font-weight: 500;
     font-size: 14px;
 }
+
+@media (max-width: 500px) {
+    .component {
+        zoom: 0.7;
+    }
+}
+
+@media (max-width: 400px) {
+    .component {
+        zoom: 0.6;
+    }
+}
