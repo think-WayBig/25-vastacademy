@@ -4,6 +4,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
+const bucket = require('./firebase');
+const multer = require('multer');
+const upload = multer();
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -127,6 +131,59 @@ app.delete('/deleteProject/:projectId', (req, res) => {
         })
     }
 })
+
+app.post('/uploadImage', upload.single('file'), async (req, res) => {
+    try {
+        const file = req.file; // Assuming you are using multer middleware for file upload
+
+        if (file) {
+            const fileName = `${Date.now()}_${file.originalname}`;
+            const fileBlob = bucket.file(fileName);
+
+            const blobStream = fileBlob.createWriteStream({
+                metadata: {
+                    contentType: file.mimetype,
+                },
+            });
+
+            blobStream.on('error', (error) => {
+                console.log(error);
+                res.status(500).json({
+                    message: 'Failed to upload document',
+                    error: error.message,
+                });
+            });
+
+            blobStream.on('finish', async () => {
+                // Updated code for generating signed URL with a valid expiration date
+                const expirationDate = new Date();
+                expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Set to expire in 1 year
+
+                const [url] = await fileBlob.getSignedUrl({
+                    action: 'read',
+                    expires: expirationDate,
+                });
+
+                res.status(200).json({
+                    message: 'Document uploaded successfully',
+                    storageUrl: url,
+                });
+            });
+
+            blobStream.end(file.buffer);
+        } else {
+            res.status(400).json({
+                message: 'No file provided in the request',
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Failed to upload document',
+            error: error.message,
+        });
+    }
+});
 
 // read, create, update, delete
 // get, post, put, delete

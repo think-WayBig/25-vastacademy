@@ -588,7 +588,7 @@
             }
             let res;
             try {
-                res = await fetch("http://127.0.0.1:3000/projects/" + pro_id.value);
+                res = await fetch("http://127.0.0.1:3000/getProject/" + pro_id.value);
                 let jsonResponse;
                 jsonResponse = await res.json();
                 console.log(jsonResponse)
@@ -617,7 +617,12 @@
 
         document.getElementById("get").addEventListener("click", getData);
 
+        var fileURL;
         async function sendData() {
+            if (!fileURL) {
+                toast("Please add an Image");
+                return;
+            }
             let data = {
                 "pro_id": pro_id.value,
                 "client_name": client_name.value,
@@ -625,7 +630,7 @@
                 "category": category.value,
                 "pro_status": pro_status.value,
                 "progress": progress.value,
-                "pro_logo": "https://fakeimg.pl/100x100"
+                "pro_logo": fileURL
             }
             let res;
 
@@ -677,7 +682,42 @@
                 preview.src = '';
                 preview.classList.add('hidden');
             }
+            sendImage();
         }
+
+        async function sendImage() {
+            const fileInput = document.getElementById("pro_logo");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch('http://127.0.0.1:3000/uploadImage', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    // Assuming the URL and name are available in the data object
+                    fileURL = data.storageUrl;
+
+                    toast('File uploaded successfully!');
+                } catch (error) {
+                    console.error(error);
+                    uploadBtn.value = "Upload";
+                    uploadBtn.removeAttribute('disabled');
+                    toast('Failed to upload file.');
+                }
+            } else {
+                uploadBtn.removeAttribute('disabled');
+                uploadBtn.value = "Upload";
+                toast('Please choose a file before uploading.');
+            }
+        };
 
         function logout() {
             localStorage.removeItem('VaAdminId');
