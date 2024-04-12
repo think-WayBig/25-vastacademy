@@ -580,6 +580,7 @@
         let category = document.getElementById("category");
         let pro_status = document.getElementById("pro_status");
         let progress = document.getElementById("progress");
+        let pro_logo = document.getElementById("pro_logo");
 
         async function getData() {
             if (pro_id.value == null || pro_id.value == undefined || pro_id.value == "") {
@@ -599,12 +600,14 @@
                     let category_get = jsonResponse.data.category;
                     let pro_status_get = jsonResponse.data.pro_status;
                     let progress_get = jsonResponse.data.progress;
+                    let pro_logo_get = jsonResponse.data.pro_logo;
                     console.log(client_name_get, domain_get, category_get, pro_status_get, progress_get);
                     client_name.value = client_name_get;
                     domain.value = domain_get;
                     category.value = category_get;
                     pro_status.value = pro_status_get;
                     progress.value = progress_get;
+                    previewImage2(pro_logo_get);
                 } else if (jsonResponse.check == 2) {
                     toast("Project not found!");
                 } else {
@@ -683,6 +686,12 @@
                 preview.classList.add('hidden');
             }
             sendImage();
+        }
+
+        function previewImage2(src) {
+            var preview = document.getElementById('imagePreview');
+            preview.src = src;
+            preview.classList.remove('hidden');
         }
 
         async function sendImage() {
