@@ -1,6 +1,8 @@
 const clientData = require('./data.json');
 const express = require('express');
 const cors = require('cors');
+const mongoose = require("mongoose");
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -10,6 +12,21 @@ const upload = multer();
 
 app.use(bodyParser.json());
 app.use(cors());
+dotenv.config();
+
+try {
+    mongoose.connect(
+        process.env.MONGODB_URL,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
+    );
+
+    console.log("connected successfully");
+} catch (err) {
+    console.log(err)
+}
 
 //The first route
 app.get('/getProjects', (req, res) => {
@@ -45,18 +62,19 @@ app.get('/getProject/:projectId', (req, res) => {
 })
 
 //Create a new project
-app.post('/newProject', (req, res) => {
-    let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = req.body;
+let newProject = require("./models/newProject")
+app.post('/newProject', async (req, res) => {
+    let { category, pro_id, domain, client_name, pro_status, pro_logo } = req.body;
     try {
-        clientData.push({
+        let NewProject = new newProject({
             "pro_id": pro_id,
             "client_name": client_name,
             "domain": domain,
             "category": category,
             "pro_status": pro_status,
-            "progress": progress,
-            "pro_logo": pro_logo
         })
+
+        await NewProject.save();
 
         res.json({
             msg: "Data sent successfully!",
