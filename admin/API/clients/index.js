@@ -1,4 +1,3 @@
-const clientData = require('./data.json');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
@@ -9,6 +8,9 @@ const app = express();
 const bucket = require('./firebase');
 const multer = require('multer');
 const upload = multer();
+
+//=========== Models =============
+let newProject = require("./models/newProject")
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -29,9 +31,10 @@ try {
 }
 
 //The first route
-app.get('/getProjects', (req, res) => {
+app.get('/getProjects', async (req, res) => {
     try {
-        res.send(clientData);
+        let projects = await newProject.find({});
+        res.send(projects);
     } catch (error) {
         console.log(error);
     }
@@ -62,7 +65,6 @@ app.get('/getProject/:projectId', (req, res) => {
 })
 
 //Create a new project
-let newProject = require("./models/newProject")
 app.post('/newProject', async (req, res) => {
     let { category, pro_id, domain, client_name, pro_status, pro_logo } = req.body;
     try {

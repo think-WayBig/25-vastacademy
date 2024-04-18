@@ -111,6 +111,7 @@ async function dataCall() {
     try {
         let res = await fetch("http://localhost:3000/getProjects");
         let data = await res.json();
+        console.log(data);
         data.forEach(client => {
             let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = client;
             generateDynamicComponent(pro_id, client_name, domain, category, pro_status, progress, pro_logo);
