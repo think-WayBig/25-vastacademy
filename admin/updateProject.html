@@ -595,12 +595,12 @@
                 console.log(jsonResponse)
                 if (jsonResponse.check == 1) {
                     toast("Data Fetched!");
-                    let client_name_get = jsonResponse.data.client_name;
-                    let domain_get = jsonResponse.data.domain;
-                    let category_get = jsonResponse.data.category;
-                    let pro_status_get = jsonResponse.data.pro_status;
-                    let progress_get = jsonResponse.data.progress;
-                    let pro_logo_get = jsonResponse.data.pro_logo;
+                    let client_name_get = jsonResponse.data[0].client_name;
+                    let domain_get = jsonResponse.data[0].domain;
+                    let category_get = jsonResponse.data[0].category;
+                    let pro_status_get = jsonResponse.data[0].pro_status;
+                    let progress_get = jsonResponse.data[0].progress;
+                    let pro_logo_get = jsonResponse.data[0].pro_logo;
                     console.log(client_name_get, domain_get, category_get, pro_status_get, progress_get);
                     client_name.value = client_name_get;
                     domain.value = domain_get;

@@ -41,17 +41,18 @@ app.get('/getProjects', async (req, res) => {
 })
 
 //Get individual project
-app.get('/getProject/:projectId', (req, res) => {
+app.get('/getProject/:projectId', async (req, res) => {
     try {
-        let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
-        if (index != -1) {
-            res.json({
-                data: clientData[index],
-                check: 1    // Data successful
+        let project = await newProject.find({ pro_id: req.params.projectId });
+
+        if(!project) {
+            res.status(404).send({
+                check: 2
             });
         } else {
-            res.json({
-                check: 2    // Not Found
+            res.status(200).send({
+                check: 1,
+                data: project
             });
         }
     } catch (error) {
