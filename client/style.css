@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 section.header {
@@ -50,11 +50,12 @@ section.header {
 section.main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 0 30px;
-    padding: 30px 0;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 30px 80px;
+    font-family: "Montserrat", sans-serif;
 }
-
+/* 
 .component {
     width: 500px;
     border-radius: 16px;
@@ -179,5 +180,249 @@ section.main {
 @media (max-width: 400px) {
     .component {
         zoom: 0.6;
+    }
+} */
+
+/*======= Second Component ========*/
+
+div.component {
+    width: 450px;
+    padding: 25px 30px;
+    box-shadow: 7px 7px 14px #d9d9d9,
+        -7px -7px 14px #ffffff;
+    border-radius: 20px;
+    zoom: 0.9;
+}
+
+div.component div.upper {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.component div.upper div.img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.component div.upper .img img {
+    width: 100px;
+    height: 100px;
+}
+
+div.component div.upper .client-name {
+    width: 240px;
+    height: 90px;
+    padding: 20px 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: inset 7px 7px 14px #e8e8e8,
+        inset -7px -7px 14px #ffffff;
+}
+
+div.component div.upper .client-name h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+div.component div.upper .client-name h4 > a {
+    text-decoration: none;
+    font-size: 13px;
+    color: #0cc0df;
+    margin-top: 8px;
+}
+
+.component .project-id {
+    margin-left: 20px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.component .category {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 35px;
+    line-height: 50px;
+    border-top: 1px solid rgb(168, 163, 163);
+    border-bottom: 1px solid rgb(168, 163, 163);
+}
+
+div.component div.lower {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.component div.lower div.right-work div.developer-img {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(128, 128, 128, 0.863);
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-left: 80px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.component div.lower .right-work .developer-img img {
+    width: 100px;
+    height: 100px;
+}
+
+div.component div.lower .right-work .title {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 55px;
+}
+
+div.component div.lower .right-work .developer-name {
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    margin-left: 55px;
+}
+
+div.component div.lower .right-work .msg {
+    width: 180px;
+    height: 100px;
+    border: 1px solid rgb(168, 163, 163);
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 10px;
+    margin-left: 30px;
+}
+
+div.component div.lower .right-work .msg h2 {
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+div.component div.lower .right-work .msg p {
+    font-size: 12px;
+    text-align: center;
+}
+
+div.component div.lower .right-work .btn .more-detail {
+    width: 100px;
+    height: 40px;
+    border-radius: 0px;
+    border: none;
+    background-color: rgb(18, 169, 230);
+    color: #fff;
+}
+
+div.component div.lower .right-work .btn .check-website {
+    width: 100px;
+    height: 40px;
+    border-radius: 0px;
+    background-color: black;
+    color: #fff;
+    border: none;
+}
+
+div.component div.lower .progress-bar h1 {
+    margin-top: 15px;
+}
+
+div.component div.lower .progress-bar h3 {
+    text-align: center;
+}
+
+div.component div.lower .progress-bar .all-nodes {
+    display: flex;
+    margin-top: 16px;
+    gap: 25px;
+    margin-left: 13px;
+}
+
+div.component div.lower .progress-bar .all-nodes .nodes {
+    width: 3px;
+    height: 290px;
+    background-color: #0cc0df;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+div.component div.lower .progress-bar .all-nodes .nodes .node {
+    width: 20px;
+    height: 20px;
+    background-color: #0cc0df;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.component div.lower .progress-bar .all-nodes .nodes .node img {
+    width: 70%;
+}
+
+div.component div.lower .progress-bar .all-nodes .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div.component div.lower .progress-bar .all-nodes .text p {
+    font-size: 13px;
+    margin-top: 5px
+}
+
+div.component div.lower .current {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #0cc0df;
+}
+
+div.component div.lower .sonar-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #0cc0df;
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+div.component div.lower .sonar-wave1 {
+    animation: sonarWave 1s linear infinite;
+}
+
+div.component div.lower .sonar-wave2 {
+    animation: sonarWave 1s 0s linear infinite;
+}
+
+div.component div.lower .sonar-wave3 {
+    animation: sonarWave 1s 0s linear infinite;
+}
+
+div.component div.lower .sonar-wave4 {
+    animation: sonarWave 1s 0s linear infinite;
+}
+
+@keyframes sonarWave {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.6);
+        opacity: 0.2;
     }
 }

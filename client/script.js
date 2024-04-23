@@ -1,4 +1,4 @@
-function generateDynamicComponent(projectID, clientName, clientURL, category, status, progress, imgSrc) {
+function generateDynamicComponent1(projectID, clientName, clientURL, category, status, progress, imgSrc) {
     // Create main container div
     var componentDiv = document.createElement('div');
     componentDiv.classList.add('component');
@@ -114,7 +114,7 @@ async function dataCall() {
         console.log(data);
         data.forEach(client => {
             let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = client;
-            generateDynamicComponent(pro_id, client_name, domain, category, pro_status, progress, pro_logo);
+            generateDynamicComponent1(pro_id, client_name, domain, category, pro_status, progress, pro_logo);
         });
     } catch (error) {
         console.log(error);
@@ -124,3 +124,180 @@ async function dataCall() {
 dataCall();
 
 // generateDynamicComponent('00002', 'Client Name', 'https://www.hi.com', 'Portfolio', 'Last Testing Stage - Deadline 25th March', '70%', 'https://fakeimg.pl/100x100')
+
+
+function generateDynamicComponent2(id, client, url, category, dev, status) {
+    // Create main container element
+    var componentDiv = document.createElement('div');
+    componentDiv.classList.add('component');
+
+    // Create upper section
+    var upperDiv = document.createElement('div');
+    upperDiv.classList.add('upper');
+
+    // Create image container
+    var imgDiv = document.createElement('div');
+    imgDiv.classList.add('img');
+    var img = document.createElement('img');
+    img.src = 'https://fakeimg.pl/100x100';
+    img.alt = '';
+    imgDiv.appendChild(img);
+
+    // Create client name container
+    var clientNameDiv = document.createElement('div');
+    clientNameDiv.classList.add('client-name');
+    var h1 = document.createElement('h1');
+    h1.textContent = client;
+    var h4 = document.createElement('h4');
+    var a = document.createElement('a');
+    a.href = url;
+    a.textContent = url;
+    h4.appendChild(a);
+    clientNameDiv.appendChild(h1);
+    clientNameDiv.appendChild(h4);
+
+    // Append image and client name to upper section
+    upperDiv.appendChild(imgDiv);
+    upperDiv.appendChild(clientNameDiv);
+
+    // Append upper section to main container
+    componentDiv.appendChild(upperDiv);
+
+    // Create project ID paragraph
+    var projectIDParagraph = document.createElement('p');
+    projectIDParagraph.classList.add('project-id');
+    projectIDParagraph.innerHTML = '<b>ID:</b> ' + id;
+    componentDiv.appendChild(projectIDParagraph);
+
+    // Create category heading
+    var categoryHeading = document.createElement('h1');
+    categoryHeading.classList.add('category');
+    categoryHeading.textContent = category;
+    componentDiv.appendChild(categoryHeading);
+
+    // Create lower section
+    var lowerDiv = document.createElement('div');
+    lowerDiv.classList.add('lower');
+
+    // Create progress bar section
+    var progressBarDiv = document.createElement('div');
+    progressBarDiv.classList.add('progress-bar');
+    if (category == "Portfolio Website") {
+        progressBarDiv.innerHTML = `
+        <h3>Project Status</h3>
+        <section class="all-nodes">
+            <div class="nodes">
+            <div class="nodes">
+            <div id="node1" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node2" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node3" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node4" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node5" class="node current">
+                <img style="position: absolute;z-index: 9999;width: 20px!important;"
+                    src="./assets/ball.png" alt="">
+                <div class="sonar-wave sonar-wave1">
+                    <div class="sonar-wave sonar-wave2"></div>
+                    <div class="sonar-wave sonar-wave3"></div>
+                    <div class="sonar-wave sonar-wave4"></div>
+                </div>
+            </div>
+            <div id="node6" class="node">
+            </div>
+            <div id="node7" class="node"></div>
+            </div>
+            </div>
+            <div class="text">
+                <p>Client Added</p>
+                <p>Model Selection</p>
+                <p>Getting Data From Client</p>
+                <p>Updating Text & Media</p>
+                <p>Adding Dynamic Features</p>
+                <p>Approval</p>
+                <p>Completed</p>
+            </div>
+        </section>`;
+    } else if (category == "Static Website") {
+        progressBarDiv.innerHTML = `
+        <h3>Project Status</h3>
+        <section class="all-nodes">
+            <div class="nodes">
+            <div id="node1" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node2" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node3" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node4" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node5" class="node current">
+                <img style="position: absolute;z-index: 9999;width: 20px!important;"
+                    src="./assets/ball.png" alt="">
+                <div class="sonar-wave sonar-wave1">
+                    <div class="sonar-wave sonar-wave2"></div>
+                    <div class="sonar-wave sonar-wave3"></div>
+                    <div class="sonar-wave sonar-wave4"></div>
+                </div>
+            </div>
+            <div id="node6" class="node">
+            </div>
+            <div id="node7" class="node"></div>
+            </div>
+            <div class="text">
+                <p>User Added</p>
+                <p>Model Selection</p>
+                <p>Getting Data From Client</p>
+                <p>Updating Text/Media</p>
+                <p>Adding Dynamic Features</p>
+                <p>Approval</p>
+                <p>Completed</p>
+            </div>
+        </section>`;
+    }
+
+    // Append progress bar section to lower section
+    lowerDiv.appendChild(progressBarDiv);
+
+    // Create right work section
+    var rightWorkDiv = document.createElement('div');
+    rightWorkDiv.classList.add('right-work');
+    rightWorkDiv.innerHTML = `
+        <div class="developer-img">
+            <img src="https://fakeimg.pl/100x100" alt="">
+        </div>
+        <p class="title">Developer</p>
+        <h2 class="developer-name">${dev}</h2>
+        <div class="msg">
+            <h2>Notification</h2>
+            <p>${status}</p>
+        </div>
+        <div class="btn">
+            <button class="more-detail">More Details</button>
+            <button class="check-website">Check Website</button>
+        </div>`;
+
+    // Append right work section to lower section
+    lowerDiv.appendChild(rightWorkDiv);
+
+    // Append lower section to main container
+    componentDiv.appendChild(lowerDiv);
+
+    // Append generated component to body or any other parent element
+    document.querySelector("#main-container").appendChild(componentDiv);
+}
+
+// Call the function with dynamic data values
+generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Static Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
+generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
+generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
