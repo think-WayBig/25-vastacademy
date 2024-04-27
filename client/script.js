@@ -107,26 +107,26 @@ function generateDynamicComponent1(projectID, clientName, clientURL, category, s
     mainContainer.append(componentDiv);
 }
 
-async function dataCall() {
-    try {
-        let res = await fetch("http://localhost:3000/getProjects");
-        let data = await res.json();
-        console.log(data);
-        data.forEach(client => {
-            let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = client;
-            generateDynamicComponent1(pro_id, client_name, domain, category, pro_status, progress, pro_logo);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
+// async function dataCall() {
+//     try {
+//         let res = await fetch("http://localhost:3000/getProjects");
+//         let data = await res.json();
+//         console.log(data);
+//         data.forEach(client => {
+//             let { category, pro_id, domain, client_name, pro_status, progress, pro_logo } = client;
+//             generateDynamicComponent1(pro_id, client_name, domain, category, pro_status, progress, pro_logo);
+//         });
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
-dataCall();
+// dataCall();
 
 // generateDynamicComponent('00002', 'Client Name', 'https://www.hi.com', 'Portfolio', 'Last Testing Stage - Deadline 25th March', '70%', 'https://fakeimg.pl/100x100')
 
 
-function generateDynamicComponent2(id, client, url, category, dev, status) {
+async function generateDynamicComponent2(id, client, url, category, dev, status, progress) {
     // Create main container element
     var componentDiv = document.createElement('div');
     componentDiv.classList.add('component');
@@ -183,47 +183,58 @@ function generateDynamicComponent2(id, client, url, category, dev, status) {
     var progressBarDiv = document.createElement('div');
     progressBarDiv.classList.add('progress-bar');
     if (category == "Portfolio Website") {
-        progressBarDiv.innerHTML = `
-        <h3>Project Status</h3>
-        <section class="all-nodes">
-            <div class="nodes">
-            <div class="nodes">
-            <div id="node1" class="node">
-                <img src="./assets/tick.png" alt="">
-            </div>
-            <div id="node2" class="node">
-                <img src="./assets/tick.png" alt="">
-            </div>
-            <div id="node3" class="node">
-                <img src="./assets/tick.png" alt="">
-            </div>
-            <div id="node4" class="node">
-                <img src="./assets/tick.png" alt="">
-            </div>
-            <div id="node5" class="node current">
-                <img style="position: absolute;z-index: 9999;width: 20px!important;"
-                    src="./assets/ball.png" alt="">
-                <div class="sonar-wave sonar-wave1">
-                    <div class="sonar-wave sonar-wave2"></div>
-                    <div class="sonar-wave sonar-wave3"></div>
-                    <div class="sonar-wave sonar-wave4"></div>
-                </div>
-            </div>
-            <div id="node6" class="node">
-            </div>
-            <div id="node7" class="node"></div>
-            </div>
-            </div>
-            <div class="text">
-                <p>Client Added</p>
-                <p>Model Selection</p>
-                <p>Getting Data From Client</p>
-                <p>Updating Text & Media</p>
-                <p>Adding Dynamic Features</p>
-                <p>Approval</p>
-                <p>Completed</p>
-            </div>
-        </section>`;
+        // Define the progress ball and tick elements
+        const progressBall = `<img style="position: absolute;z-index: 9999;width: 20px!important;" src="./assets/ball.png" alt="">
+<div class="sonar-wave sonar-wave1">
+    <div class="sonar-wave sonar-wave2"></div>
+    <div class="sonar-wave sonar-wave3"></div>
+    <div class="sonar-wave sonar-wave4"></div>
+</div>`;
+        const progressTick = `<img src="./assets/tick.png" alt="">`;
+
+        // Create project status elements
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Project Status';
+
+        const section = document.createElement('section');
+        section.classList.add('all-nodes');
+
+        const divNodes = document.createElement('div');
+        divNodes.classList.add('nodes');
+
+        const divTextPortfolio = document.createElement('div');
+        divTextPortfolio.classList.add('text-portfolio');
+
+        // Define project statuses and create nodes and text
+        const statuses = ['Client Added', 'Model Selection', 'Getting Data From Client', 'Updating Text & Media', 'Approval', 'Completed'];
+        statuses.forEach((status, index) => {
+            const divNode = document.createElement('div');
+            divNode.id = 'node' + (index + 1);
+            divNode.classList.add('node');
+
+            const p = document.createElement('p');
+            p.textContent = status;
+
+            divNodes.appendChild(divNode);
+            divTextPortfolio.appendChild(p);
+        });
+
+        // Append nodes and text to the section
+        section.appendChild(divNodes);
+        section.appendChild(divTextPortfolio);
+
+        // Append the section to the progressBarDiv
+        progressBarDiv.appendChild(h3);
+        progressBarDiv.appendChild(section);
+
+        // Update progress status
+        const nodes = divNodes.querySelectorAll('.node');
+        if (progress >= 1 && progress <= nodes.length) {
+            for (let i = 0; i < progress; i++) {
+                nodes[i].innerHTML = (i === progress - 1) ? progressBall : progressTick;
+                nodes[i].classList.add('current');
+            }
+        }
     } else if (category == "Static Website") {
         progressBarDiv.innerHTML = `
         <h3>Project Status</h3>
@@ -254,11 +265,54 @@ function generateDynamicComponent2(id, client, url, category, dev, status) {
             </div>
             <div id="node7" class="node"></div>
             </div>
-            <div class="text">
+            <div class="text-static">
                 <p>User Added</p>
                 <p>Model Selection</p>
                 <p>Getting Data From Client</p>
                 <p>Updating Text/Media</p>
+                <p>Adding Dynamic Features</p>
+                <p>Approval</p>
+                <p>Completed</p>
+            </div>
+        </section>`;
+    } else if (category == "Dynamic Website") {
+        progressBarDiv.innerHTML = `
+        <h3>Project Status</h3>
+        <section class="all-nodes">
+            <div class="nodes">
+            <div id="node1" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node2" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node3" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node4" class="node">
+                <img src="./assets/tick.png" alt="">
+            </div>
+            <div id="node5" class="node current">
+                <img style="position: absolute;z-index: 9999;width: 20px!important;"
+                    src="./assets/ball.png" alt="">
+                <div class="sonar-wave sonar-wave1">
+                    <div class="sonar-wave sonar-wave2"></div>
+                    <div class="sonar-wave sonar-wave3"></div>
+                    <div class="sonar-wave sonar-wave4"></div>
+                </div>
+            </div>
+            <div id="node6" class="node"></div>
+            <div id="node7" class="node"></div>
+            <div id="node8" class="node"></div>
+            <div id="node9" class="node"></div>
+            </div>
+            <div class="text-static">
+                <p>User Added</p>
+                <p>Model Selection</p>
+                <p>Getting Data From Client</p>
+                <p>Updating Text/Media</p>
+                <p>Adding Pages</p>
+                <p>Creating Admin Panel</p>
                 <p>Adding Dynamic Features</p>
                 <p>Approval</p>
                 <p>Completed</p>
@@ -298,6 +352,6 @@ function generateDynamicComponent2(id, client, url, category, dev, status) {
 }
 
 // Call the function with dynamic data values
-generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Static Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
-generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
-generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed');
+generateDynamicComponent2('00001', '3G-Digital', 'https://www.clientname.com', 'Static Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '3');
+generateDynamicComponent2('00002', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '5');
+generateDynamicComponent2('00003', '3G-Digital', 'https://www.clientname.com', 'Dynamic Website', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '3');

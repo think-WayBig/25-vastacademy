@@ -55,6 +55,7 @@ section.main {
     padding: 30px 80px;
     font-family: "Montserrat", sans-serif;
 }
+
 /* 
 .component {
     width: 500px;
@@ -230,7 +231,7 @@ div.component div.upper .client-name h1 {
     font-weight: bold;
 }
 
-div.component div.upper .client-name h4 > a {
+div.component div.upper .client-name h4>a {
     text-decoration: none;
     font-size: 13px;
     color: #0cc0df;
@@ -335,6 +336,7 @@ div.component div.lower .progress-bar h1 {
 
 div.component div.lower .progress-bar h3 {
     text-align: center;
+    margin-top: 10px;
 }
 
 div.component div.lower .progress-bar .all-nodes {
@@ -346,7 +348,6 @@ div.component div.lower .progress-bar .all-nodes {
 
 div.component div.lower .progress-bar .all-nodes .nodes {
     width: 3px;
-    height: 290px;
     background-color: #0cc0df;
     display: flex;
     flex-direction: column;
@@ -368,11 +369,20 @@ div.component div.lower .progress-bar .all-nodes .nodes .node img {
     width: 70%;
 }
 
-div.component div.lower .progress-bar .all-nodes .text {
+div.component div.lower .progress-bar .all-nodes .text-static,
+div.component div.lower .progress-bar .all-nodes .text-portfolio {
     display: flex;
     flex-direction: column;
+}
+
+div.component div.lower .progress-bar .all-nodes .text-static {
     justify-content: space-between;
 }
+
+div.component div.lower .progress-bar .all-nodes .text-portfolio {
+    gap: 17.5px;
+}
+
 
 div.component div.lower .progress-bar .all-nodes .text p {
     font-size: 13px;
