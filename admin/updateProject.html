@@ -455,20 +455,20 @@
                     <input id="client_name" type="text" placeholder="Client Name" />
                     <input id="domain" type="text" placeholder="Domain Name" />
                     <select id="category">
-                        <option value="Dynamic">Dynamic</option>
-                        <option value="Portfolio">Portfolio</option>
-                        <option value="Ecommerce">Ecommerce</option>
-                        <option value="Static">Static</option>
+                        <option value="Dynamic Website">Dynamic Website</option>
+                        <option value="Portfolio Website">Portfolio Website</option>
+                        <option value="Static Website">Static Website</option>
                     </select>
+                    <input id="dev_name" type="text" placeholder="Developer Name" />
+                    <div class="file-input-container">
+                        <label for="dev_logo" class="file-input-label">Developer Image</label>
+                        <input id="dev_logo" type="file" class="file-input hidden" accept="image/*"
+                            onchange="previewImage(event)" />
+                    </div>
+                    <img id="imagePreview" class="image-preview hidden" />
+
                     <input id="pro_status" type="text" placeholder="Status" />
-                    <select id="progress">
-                        <option value="1">Stage 1</option>
-                        <option value="2">Stage 2</option>
-                        <option value="3">Stage 3</option>
-                        <option value="4">Stage 4</option>
-                        <option value="5">Stage 5</option>
-                        <option value="6">Stage 6</option>
-                    </select>
+                    <input id="progress" type="text" placeholder="progress" />
                     <button id="submit">Submit</button>
                 </section>
             </div>
@@ -575,12 +575,13 @@
         loginAllow();
 
         let pro_id = document.getElementById("pro_id");
-        let client_name = document.getElementById("client_name");
-        let domain = document.getElementById("domain");
-        let category = document.getElementById("category");
-        let pro_status = document.getElementById("pro_status");
-        let progress = document.getElementById("progress");
-        let pro_logo = document.getElementById("pro_logo");
+            let client_name = document.getElementById("client_name");
+            let domain = document.getElementById("domain");
+            let category = document.getElementById("category");
+            let dev_name = document.getElementById("dev_name");
+            let pro_status = document.getElementById("pro_status");
+            let progress = document.getElementById("progress");
+
 
         async function getData() {
             if (pro_id.value == null || pro_id.value == undefined || pro_id.value == "") {
@@ -631,6 +632,7 @@
                 "client_name": client_name.value,
                 "domain": domain.value,
                 "category": category.value,
+                "dev_name" : dev_name.value,
                 "pro_status": pro_status.value,
                 "progress": progress.value,
                 "pro_logo": fileURL

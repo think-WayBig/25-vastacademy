@@ -293,7 +293,7 @@ div.component div.lower .right-work .developer-name {
 
 div.component div.lower .right-work .msg {
     width: 180px;
-    height: 100px;
+    height: 120px;
     border: 1px solid rgb(168, 163, 163);
     margin-top: 20px;
     margin-bottom: 15px;
@@ -312,6 +312,12 @@ div.component div.lower .right-work .msg p {
     text-align: center;
 }
 
+div.component div.lower .right-work .btn{
+    width: 220px;
+    display: flex;
+    justify-content: space-around;
+}
+
 div.component div.lower .right-work .btn .more-detail {
     width: 100px;
     height: 40px;
@@ -319,6 +325,13 @@ div.component div.lower .right-work .btn .more-detail {
     border: none;
     background-color: rgb(18, 169, 230);
     color: #fff;
+    cursor: pointer;
+}
+
+div.component div.lower .right-work .btn .more-detail:hover{
+    color: #0cc0df;
+    background-color: #ffffff;
+    border: 2px solid #0cc0df;
 }
 
 div.component div.lower .right-work .btn .check-website {
@@ -328,6 +341,13 @@ div.component div.lower .right-work .btn .check-website {
     background-color: black;
     color: #fff;
     border: none;
+    cursor: pointer;
+}
+
+div.component div.lower .right-work .btn .check-website:hover{
+    color: black;
+    border: 2px solid black;
+    background-color: #ffffff;
 }
 
 div.component div.lower .progress-bar h1 {
@@ -370,12 +390,14 @@ div.component div.lower .progress-bar .all-nodes .nodes .node img {
 }
 
 div.component div.lower .progress-bar .all-nodes .text-static,
-div.component div.lower .progress-bar .all-nodes .text-portfolio {
+div.component div.lower .progress-bar .all-nodes .text-portfolio,
+div.component div.lower .progress-bar .all-nodes .text-dynamic {
     display: flex;
     flex-direction: column;
 }
 
-div.component div.lower .progress-bar .all-nodes .text-static {
+div.component div.lower .progress-bar .all-nodes .text-static,
+div.component div.lower .progress-bar .all-nodes .text-dynamic {
     justify-content: space-between;
 }
 

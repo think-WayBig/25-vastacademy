@@ -29,6 +29,14 @@ const newProject = new mongoose.Schema({
     pro_logo: {
         type: String,
         default: 'https://fakeimg.pl/100x100'
+    },
+    dev_name: {
+        type: String,
+        required: true
+    },
+    dev_logo: {
+        type: String,
+        default: 'https://fakeimg.pl/100x100'
     }
 });
 

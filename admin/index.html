@@ -447,12 +447,20 @@
                     <input id="client_name" type="text" placeholder="Client Name" />
                     <input id="domain" type="text" placeholder="Domain Name" />
                     <select id="category">
-                        <option value="Dynamic">Dynamic</option>
-                        <option value="Portfolio">Portfolio</option>
-                        <option value="Ecommerce">Ecommerce</option>
-                        <option value="Static">Static</option>
+                        <option value="Dynamic Website">Dynamic Website</option>
+                        <option value="Portfolio Website">Portfolio Website</option>
+                        <option value="Static Website">Static Website</option>
                     </select>
+                    <input id="dev_name" type="text" placeholder="Developer Name" />
+                    <div class="file-input-container">
+                        <label for="dev_logo" class="file-input-label">Developer Image</label>
+                        <input id="dev_logo" type="file" class="file-input hidden" accept="image/*"
+                            onchange="previewImage(event)" />
+                    </div>
+                    <img id="imagePreview" class="image-preview hidden" />
+
                     <input id="pro_status" type="text" placeholder="Status" />
+                    <input id="progress" type="text" placeholder="progress" />
                     <button id="submit">Submit</button>
                 </section>
             </div>
@@ -563,6 +571,7 @@
             let client_name = document.getElementById("client_name");
             let domain = document.getElementById("domain");
             let category = document.getElementById("category");
+            let dev_name = document.getElementById("dev_name");
             let pro_status = document.getElementById("pro_status");
             let progress = document.getElementById("progress");
 
@@ -571,7 +580,9 @@
                 "client_name": client_name.value,
                 "domain": domain.value,
                 "category": category.value,
+                "dev_name" : dev_name.value,
                 "pro_status": pro_status.value,
+                "progress" : progress.value
             }
             let res;
 
