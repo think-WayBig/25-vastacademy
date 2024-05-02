@@ -11,7 +11,6 @@ const upload = multer();
 
 //=========== Models =============
 let newProject = require("./models/newProject");
-const NewProject = require('./models/newProject');
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -42,9 +41,9 @@ app.get('/getProjects', async (req, res) => {
 })
 
 //Get individual project
-app.get('/getProject/:pro_id',  async (req, res) => {
+app.get('/getProject/:pro_id', async (req, res) => {
     try {
-        let NewProject = await newProject.find({ pro_id: req.params.pro_id});
+        let NewProject = await newProject.find({ pro_id: req.params.pro_id });
         if (NewProject != -1) {
             res.json({
                 data: NewProject,
@@ -57,22 +56,22 @@ app.get('/getProject/:pro_id',  async (req, res) => {
         }
     } catch (error) {
         res.send(error)
-        
+
     }
 });
 
 //Create a new project
 app.post('/newProject', async (req, res) => {
-    let { category, pro_id, domain, client_name, dev_name, pro_status, progress,pro_logo } = req.body;
+    let { category, pro_id, domain, client_name, dev_name, pro_status, progress, pro_logo } = req.body;
     try {
         let NewProject = new newProject({
             "pro_id": pro_id,
             "client_name": client_name,
             "domain": domain,
             "category": category,
-            "dev_name" : dev_name,
+            "dev_name": dev_name,
             "pro_status": pro_status,
-            "progress" :progress
+            "progress": progress
         })
 
         await NewProject.save();
@@ -91,23 +90,25 @@ app.post('/newProject', async (req, res) => {
 
 //Update client data
 app.put('/updateProject', async (req, res) => {
-    let { category, domain, client_name, dev_name, pro_status, progress,pro_logo } = req.body;
+    let { pro_id, category, domain, client_name, dev_name, pro_status, progress, pro_logo, dev_logo } = req.body;
     try {
-        let NewProject = await newProject.updateOne({ pro_id: req.params.pro_id});
-        if (NewProject !== -1) {
-            NewProject.category = category;
-            NewProject.domain = domain;
-            NewProject.client_name = client_name;
-            NewProject.dev_name = dev_name;
-            NewProject.pro_status = pro_status;
-            NewProject.progress = progress;
-            NewProject.pro_logo = pro_logo;
+        let NewProject = await newProject.findOneAndUpdate({ pro_id: pro_id }, {
+            client_name,
+            progress,
+            domain,
+            category,
+            pro_status,
+            pro_logo,
+            dev_name,
+            dev_logo
+        });
 
-     
+        let UpdatedProject = await newProject.find({ pro_id: pro_id });
+        if (NewProject !== -1) {
             res.json({
                 msg: "Project updated successfully",
                 status: "success",
-                data: NewProject
+                data: UpdatedProject
             });
         } else
             res.status(404).json({
@@ -115,7 +116,7 @@ app.put('/updateProject', async (req, res) => {
                 status: "error",
                 data: req.body
             });
-        } catch (error) {
+    } catch (error) {
         console.log(error);
         res.json({
             msg: "Project Not Found!"
@@ -125,19 +126,18 @@ app.put('/updateProject', async (req, res) => {
 
 app.delete('/deleteProject/:projectId', async (req, res) => {
     try {
-        let NewProject = await newProject.deleteOne({ pro_id: req.params.pro_id })
-      
+        let NewProject = await newProject.findOne({ pro_id: req.params.projectId })
+
         if (NewProject == -1) {
             res.json({
                 check: 2 // Not Found
             })
             return;
-        }
-
-        if (NewProject != -1) {
-            newProject.deleteOne(NewProject, 1);
+        } else if (NewProject != -1) {
+            newProject.deleteOne({ pro_id: req.params.projectId });
             res.json({
-                check: 1 // Project found
+                check: 1, // Project found
+                msg: 'Project deleted successfully'
             })
         }
     } catch (error) {
