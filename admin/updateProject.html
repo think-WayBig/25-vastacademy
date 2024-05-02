@@ -575,12 +575,12 @@
         loginAllow();
 
         let pro_id = document.getElementById("pro_id");
-            let client_name = document.getElementById("client_name");
-            let domain = document.getElementById("domain");
-            let category = document.getElementById("category");
-            let dev_name = document.getElementById("dev_name");
-            let pro_status = document.getElementById("pro_status");
-            let progress = document.getElementById("progress");
+        let client_name = document.getElementById("client_name");
+        let domain = document.getElementById("domain");
+        let category = document.getElementById("category");
+        let dev_name = document.getElementById("dev_name");
+        let pro_status = document.getElementById("pro_status");
+        let progress = document.getElementById("progress");
 
 
         async function getData() {
@@ -599,13 +599,15 @@
                     let client_name_get = jsonResponse.data[0].client_name;
                     let domain_get = jsonResponse.data[0].domain;
                     let category_get = jsonResponse.data[0].category;
+                    let dev_name_get = jsonResponse.data[0].dev_name;
                     let pro_status_get = jsonResponse.data[0].pro_status;
                     let progress_get = jsonResponse.data[0].progress;
                     let pro_logo_get = jsonResponse.data[0].pro_logo;
-                    console.log(client_name_get, domain_get, category_get, pro_status_get, progress_get);
+                    console.log(client_name_get, domain_get, category_get, dev_name_get, pro_status_get, progress_get);
                     client_name.value = client_name_get;
                     domain.value = domain_get;
                     category.value = category_get;
+                    dev_name.value = dev_name_get;
                     pro_status.value = pro_status_get;
                     progress.value = progress_get;
                     previewImage2(pro_logo_get);
@@ -616,6 +618,7 @@
                 }
             } catch (error) {
                 console.log(error);
+                toast("Error fetching data!");
             }
         }
 
@@ -632,15 +635,15 @@
                 "client_name": client_name.value,
                 "domain": domain.value,
                 "category": category.value,
-                "dev_name" : dev_name.value,
+                "dev_name": dev_name.value,
                 "pro_status": pro_status.value,
-                "progress": progress.value,
-                "pro_logo": fileURL
+                "progress": progress.value
+                // "pro_logo": fileURL
             }
             let res;
 
             try {
-                res = await fetch("http://127.0.0.1:3000/updateProject/", {
+                res = await fetch("http://127.0.0.1:3000/updateProject", {
                     method: "PUT",
                     mode: "cors",
                     cache: "no-cache",

@@ -10,7 +10,8 @@ const multer = require('multer');
 const upload = multer();
 
 //=========== Models =============
-let newProject = require("./models/newProject")
+let newProject = require("./models/newProject");
+const NewProject = require('./models/newProject');
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -41,12 +42,12 @@ app.get('/getProjects', async (req, res) => {
 })
 
 //Get individual project
-app.get('/getProject/:projectId', (req, res) => {
+app.get('/getProject/:pro_id',  async (req, res) => {
     try {
-        let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
-        if (index != -1) {
+        let NewProject = await newProject.find({ pro_id: req.params.pro_id});
+        if (NewProject != -1) {
             res.json({
-                data: clientData[index],
+                data: NewProject,
                 check: 1    // Data successful
             });
         } else {
@@ -55,14 +56,10 @@ app.get('/getProject/:projectId', (req, res) => {
             });
         }
     } catch (error) {
-        res.json({
-            msg: error.message,
-            status: error.status,
-            data: req.body,
-            check: 0    //Data Error
-        })
+        res.send(error)
+        
     }
-})
+});
 
 //Create a new project
 app.post('/newProject', async (req, res) => {
@@ -93,26 +90,32 @@ app.post('/newProject', async (req, res) => {
 })
 
 //Update client data
-app.put('/updateProject/:projectId', async (req, res) => {
-    let { category, pro_id, domain, client_name, dev_name, pro_status, progress,pro_logo } = req.body;
+app.put('/updateProject', async (req, res) => {
+    let { category, domain, client_name, dev_name, pro_status, progress,pro_logo } = req.body;
     try {
-        await newProject.findOneAndUpdate({ projectId: req.params.projectId}, { category: category, pro_id: pro_id,  domain:  domain, client_name: client_name, dev_name: dev_name, pro_status: pro_status, progress : progress });
-        let NewProject = await newProject.find({});
+        let NewProject = await newProject.updateOne({ pro_id: req.params.pro_id});
+        if (NewProject !== -1) {
+            NewProject.category = category;
+            NewProject.domain = domain;
+            NewProject.client_name = client_name;
+            NewProject.dev_name = dev_name;
+            NewProject.pro_status = pro_status;
+            NewProject.progress = progress;
+            NewProject.pro_logo = pro_logo;
+
+     
             res.json({
                 msg: "Project updated successfully",
                 status: "success",
                 data: NewProject
             });
-        // } else {
-            
-        //     res.status(404).json({
-        //         msg: "Project not found",
-        //         status: "error",
-        //         data: req.body
-        //     });
-        // }
-
-    } catch (error) {
+        } else
+            res.status(404).json({
+                msg: "Project not found",
+                status: "error",
+                data: req.body
+            });
+        } catch (error) {
         console.log(error);
         res.json({
             msg: "Project Not Found!"
@@ -120,18 +123,19 @@ app.put('/updateProject/:projectId', async (req, res) => {
     }
 });
 
-app.delete('/deleteProject/:projectId', (req, res) => {
+app.delete('/deleteProject/:projectId', async (req, res) => {
     try {
-        let index = clientData.findIndex(project => project.pro_id === req.params.projectId);
-        if (index == -1) {
+        let NewProject = await newProject.deleteOne({ pro_id: req.params.pro_id })
+      
+        if (NewProject == -1) {
             res.json({
                 check: 2 // Not Found
             })
             return;
         }
 
-        if (index != -1) {
-            clientData.splice(index, 1);
+        if (NewProject != -1) {
+            newProject.deleteOne(NewProject, 1);
             res.json({
                 check: 1 // Project found
             })
