@@ -8,14 +8,14 @@ const newTheme = new mongoose.Schema({
     },
     name: {
         type: String,
-        default: "AnonTheme"
+        default: "VATheme"
     },
-    desc: {
+    description: {
         type: String,
         required: true
     },
     category: {
-        type: String,
+        type: Array,
         required: true
     }
 });
