@@ -465,7 +465,7 @@
                         <input id="dev_logo" type="file" class="file-input hidden" accept="image/*"
                             onchange="previewImage(event)" />
                     </div>
-                    <img id="imagePreview" class="image-preview hidden" />
+                    <img id="imagePreview2" class="image-preview hidden" />
 
                     <input id="pro_status" type="text" placeholder="Status" />
                     <input id="progress" type="text" placeholder="progress" />
@@ -603,6 +603,7 @@
                     let pro_status_get = jsonResponse.data[0].pro_status;
                     let progress_get = jsonResponse.data[0].progress;
                     let pro_logo_get = jsonResponse.data[0].pro_logo;
+                    let dev_logo_get = jsonResponse.data[0].dev_logo;
                     console.log(client_name_get, domain_get, category_get, dev_name_get, pro_status_get, progress_get);
                     client_name.value = client_name_get;
                     domain.value = domain_get;
@@ -611,6 +612,7 @@
                     pro_status.value = pro_status_get;
                     progress.value = progress_get;
                     previewImage2(pro_logo_get);
+                    previewImage3(dev_logo_get);
                 } else if (jsonResponse.check == 2) {
                     toast("Project not found!");
                 } else {
@@ -625,11 +627,9 @@
         document.getElementById("get").addEventListener("click", getData);
 
         var fileURL;
+        var fileURLN;
         async function sendData() {
-            if (!fileURL) {
-                toast("Please add an Image");
-                return;
-            }
+           
             let data = {
                 "pro_id": pro_id.value,
                 "client_name": client_name.value,
@@ -637,8 +637,9 @@
                 "category": category.value,
                 "dev_name": dev_name.value,
                 "pro_status": pro_status.value,
-                "progress": progress.value
-                // "pro_logo": fileURL
+                "progress": progress.value,
+                "pro_logo": fileURL,
+                "dev_logo" : fileURLN
             }
             let res;
 
@@ -718,6 +719,67 @@
 
                     // Assuming the URL and name are available in the data object
                     fileURL = data.storageUrl;
+
+                    toast('File uploaded successfully!');
+                } catch (error) {
+                    console.error(error);
+                    uploadBtn.value = "Upload";
+                    uploadBtn.removeAttribute('disabled');
+                    toast('Failed to upload file.');
+                }
+            } else {
+                uploadBtn.removeAttribute('disabled');
+                uploadBtn.value = "Upload";
+                toast('Please choose a file before uploading.');
+            }
+        };
+
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('imagePreview2');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                }
+
+                let file1 = reader.readAsDataURL(input.files[0]);
+                preview.classList.remove('hidden');
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden');
+            }
+            sendImage2();
+        }
+
+        function previewImage3(src) {
+            var preview = document.getElementById('imagePreview2');
+            preview.src = src;
+            preview.classList.remove('hidden');
+        }
+
+
+        async function sendImage2() {
+            const fileInput = document.getElementById("dev_logo");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch('http://127.0.0.1:3000/uploadDevImage', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    // Assuming the URL and name are available in the data object
+                    fileURLN = data.storageUrl;
 
                     toast('File uploaded successfully!');
                 } catch (error) {

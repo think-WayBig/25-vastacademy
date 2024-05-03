@@ -429,6 +429,6 @@ async function dataCall() {
     dataCall();
 
 // Call the function with dynamic data values
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'https://vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100','Sandeep Singh',  'Client must choose a model within 3 days, or this account will be removed', '4');
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00002', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '6');
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00003', '3G-Digital', 'https://www.clientname.com', 'Dynamic Website', 'https://fakeimg.pl/100x100','Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '9');
+// generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'https://vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100','Sandeep Singh',  'Client must choose a model within 3 days, or this account will be removed', '4');
+// generateDynamicComponent2('https://fakeimg.pl/100x100', '00002', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '6');
+// generateDynamicComponent2('https://fakeimg.pl/100x100', '00003', '3G-Digital', 'https://www.clientname.com', 'Dynamic Website', 'https://fakeimg.pl/100x100','Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '9');
