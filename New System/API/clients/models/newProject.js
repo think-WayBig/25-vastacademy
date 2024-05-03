@@ -39,7 +39,11 @@ const newProject = new mongoose.Schema({
         default: '1'
     },
     themes: {
-        type: Array,        // [{endpoint: '2', selected: 0}, {url: 'https://lib.vacomputers.com/theme2', selected: 0}, {url: 'https://lib.vacomputers.com/theme3', selected: 0}]
+        type: Array,        // [{themeId: '2', selected: 0}, {themeId: '3', selected: 0}, {themeId: '4', selected: 0}]
+        required: true
+    },
+    websiteBtn: {
+        type: Object,       // {text: "Select Theme", state: "0"} {text: "Check Website", state: "1"}
         required: true
     }
 });
