@@ -128,12 +128,12 @@ app.delete('/deleteProject/:projectId', async (req, res) => {
     try {
         let NewProject = await newProject.findOne({ pro_id: req.params.projectId })
 
-        if (NewProject == -1) {
+        if (NewProject == null) {
             res.json({
                 check: 2 // Not Found
             })
-        } else if (NewProject != -1) {
-            newProject.deleteOne({ pro_id: req.params.projectId });
+        } else if (NewProject != null) {
+            await newProject.deleteOne({ pro_id: req.params.projectId });
             res.json({
                 check: 1, // Project found
                 msg: 'Project deleted successfully'
