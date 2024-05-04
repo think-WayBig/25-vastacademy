@@ -83,7 +83,8 @@ app.post('/newProject', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.json({
-            msg: "Data not sent!"
+            msg: "Data not sent!",
+            error: error
         });
     }
 })

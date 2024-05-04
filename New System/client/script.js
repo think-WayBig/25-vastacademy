@@ -144,7 +144,7 @@ const themesData = [
     }
 ];
 
-async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themesData) {
+async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themes, websiteBtn) {
     // Create main container element
     var componentDiv = document.createElement('div');
     componentDiv.classList.add('component');
@@ -417,7 +417,7 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     // Check Website button
     var checkWebsiteButton = document.createElement('button');
     checkWebsiteButton.classList.add('more-detail');
-    checkWebsiteButton.textContent = 'Check Website';
+    checkWebsiteButton.textContent = websiteBtn.text;
     btnDiv.appendChild(checkWebsiteButton);
 
     rightWorkDiv.appendChild(btnDiv);
@@ -426,9 +426,15 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     // Append lower section to main container
     componentDiv.appendChild(lowerDiv);
 
-    checkWebsiteButton.onclick = () => {
-        generatePopup();
-    };
+    if (websiteBtn.state == 0) {
+        checkWebsiteButton.onclick = () => {
+            generatePopup();
+        };
+    } else {
+        checkWebsiteButton.onclick = () => {
+            location.href = "";
+        };
+    }
 
     async function generatePopup() {
         // Create the outer section
@@ -447,6 +453,12 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
         allThemesDiv.appendChild(crossIconDiv);
         crossIconDiv.onclick = () => {
             document.body.removeChild(containerDiv);
+        }
+
+        let themesData = [];
+
+        for(let i = 1; i <= themes.length; i++) {
+            await fetch('')
         }
 
         themesData.forEach(themeData => {
@@ -502,8 +514,8 @@ async function dataCall() {
         let data = await res.json();
         console.log(data);
         data.forEach(client => {
-            let { pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress } = client;
-            generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themesData);
+            let { pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themes, websiteBtn } = client;
+            generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themes, websiteBtn);
         });
     } catch (error) {
         console.log(error);
@@ -512,5 +524,8 @@ async function dataCall() {
 
 dataCall();
 
-// Call the function with dynamic data values
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData);
+let websiteBtn = {
+    text: 'Select Theme', state: "0"
+}
+
+generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData, websiteBtn);
