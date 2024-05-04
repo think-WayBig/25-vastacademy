@@ -402,15 +402,100 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     btnDiv.appendChild(checkWebsiteButton);
 
     rightWorkDiv.appendChild(btnDiv);
+    
 
     lowerDiv.appendChild(rightWorkDiv);
     // Append lower section to main container
     componentDiv.appendChild(lowerDiv);
 
+    checkWebsiteButton.addEventListener('click', async function() {
+        // Call the generatePopup function
+        await generatePopup();
+    });
 
+    async function generatePopup() {
+        // Create the outer section
+        const outerSection = document.createElement('section');
+        outerSection.classList.add('outer');
+        outerSection.setAttribute('id', 'popupContainer');
+    
+        // Create the div for all themes
+        const allThemesDiv = document.createElement('div');
+        allThemesDiv.classList.add('all-themes');
+    
+        // Create the div for cross icon
+        const crossIconDiv = document.createElement('div');
+        crossIconDiv.classList.add('cross-icon');
+        crossIconDiv.innerHTML = '<i class="fa fa-times" id="closePopup" aria-hidden="true"></i>';
+        allThemesDiv.appendChild(crossIconDiv);
+    
+        // Create theme divs
+        const themesData = [
+            {
+                title: 'iPortfolio',
+                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+                buttons: ['Premium', 'Single Page']
+            },
+            {
+                title: 'Quick Start',
+                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+                buttons: ['Premium', 'Single Page']
+            },
+            {
+                title: 'iPortfolio',
+                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+                buttons: ['Premium', 'Single Page']
+            }
+        ];
+    
+        themesData.forEach(themeData => {
+            const themeDiv = document.createElement('div');
+            themeDiv.classList.add('theme');
+    
+            const h1 = document.createElement('h1');
+            h1.textContent = themeData.title;
+            themeDiv.appendChild(h1);
+    
+            const btnsDiv = document.createElement('div');
+            btnsDiv.classList.add('btns');
+            themeData.buttons.forEach(buttonText => {
+                const button = document.createElement('button');
+                button.textContent = buttonText;
+                btnsDiv.appendChild(button);
+            });
+            themeDiv.appendChild(btnsDiv);
+    
+            const p = document.createElement('p');
+            p.textContent = themeData.description;
+            themeDiv.appendChild(p);
+    
+            const selectBtnsDiv = document.createElement('div');
+            selectBtnsDiv.classList.add('select-btns');
+            const previewBtn = document.createElement('button');
+            previewBtn.textContent = 'Preview';
+            const selectBtn = document.createElement('button');
+            selectBtn.textContent = 'Select';
+            selectBtnsDiv.appendChild(previewBtn);
+            selectBtnsDiv.appendChild(selectBtn);
+            themeDiv.appendChild(selectBtnsDiv);
+    
+            allThemesDiv.appendChild(themeDiv);
+        });
+    
+        outerSection.appendChild(allThemesDiv);
+    
+        // Create a container div to hold the outer section
+    const containerDiv = document.createElement('div');
+    containerDiv.appendChild(outerSection);
+
+    // Append the container to the body
+    document.body.appendChild(containerDiv);
+}
     // Append generated component to body or any other parent element
     document.querySelector("#main-container").appendChild(componentDiv);
-}
+};
+
+
 
 async function dataCall() {
         try {
@@ -430,5 +515,23 @@ async function dataCall() {
 
 // Call the function with dynamic data values
 generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'https://vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100','Sandeep Singh',  'Client must choose a model within 3 days, or this account will be removed', '4');
-// generateDynamicComponent2('https://fakeimg.pl/100x100', '00002', '3G-Digital', 'https://www.clientname.com', 'Portfolio Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '6');
-// generateDynamicComponent2('https://fakeimg.pl/100x100', '00003', '3G-Digital', 'https://www.clientname.com', 'Dynamic Website', 'https://fakeimg.pl/100x100','Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '9');
+
+
+
+
+const previewButtons = document.querySelectorAll('div.component div.lower .right-work .btn .check-website');
+
+previewButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Show popup
+        const popupContainer = document.getElementById('popupContainer');
+        popupContainer.style.visibility = 'visible';
+    });
+});
+
+// Close popup when close button is clicked
+const closePopupButton = document.getElementById('closePopup');
+closePopupButton.addEventListener('click', () => {
+    const popupContainer = document.getElementById('popupContainer');
+    popupContainer.style.visibility = 'hidden';
+});
