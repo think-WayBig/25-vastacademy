@@ -519,19 +519,3 @@ generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', '
 
 
 
-const previewButtons = document.querySelectorAll('div.component div.lower .right-work .btn .check-website');
-
-previewButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Show popup
-        const popupContainer = document.getElementById('popupContainer');
-        popupContainer.style.visibility = 'visible';
-    });
-});
-
-// Close popup when close button is clicked
-const closePopupButton = document.getElementById('closePopup');
-closePopupButton.addEventListener('click', () => {
-    const popupContainer = document.getElementById('popupContainer');
-    popupContainer.style.visibility = 'hidden';
-});

@@ -26,7 +26,9 @@
 
 <body>
     <section style="display: flex;align-items: center;justify-content: center;" class="header">
-        <a href="../admin/"> <h1 style="color: white;font-family: montserrat;font-size: 30px;">Client</h1> </a>
+        <a href="../admin/">
+            <h1 style="color: white;font-family: montserrat;font-size: 30px;">Client</h1>
+        </a>
     </section>
 
     <!-- <div class="selection-bar">
@@ -87,7 +89,7 @@
             </div>
         </div> -->
 
-        <!-- <div class="component">
+        <div class="component">
             <div class="upper">
                 <div class="img">
                     <img src="https://fakeimg.pl/100x100" alt="">
@@ -106,7 +108,7 @@
                     <h3>Project Status</h3>
                     <section class="all-nodes">
                         <div class="nodes text-portfolio">
-                        
+
                             <div id="node1" class="node">
                                 <img src="./assets/tick.png" alt="">
                             </div>
@@ -157,58 +159,83 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </section>
 
     <section class="outer" id="popupContainer">
-       
+
         <div class="all-themes">
             <div class="cross-icon">
-            <i class="fa fa-times" id="closePopup" aria-hidden="true"></i>  
-        </div>
-        <div class="theme">
-            <h1>iPortfolio</h1>
-            <div class="btns">
-                <button class="pre">Premium</button>&nbsp;&nbsp;
-                <button>Single Page</button>
+                <i class="fa fa-times" id="closePopup" aria-hidden="true"></i>
             </div>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet </p>
-            <div class="select-btns">
-                <button>Preview</button>&nbsp;&nbsp;
-                <button>Select</button>
+            <div class="theme">
+                <h1>iPortfolio</h1>
+                <div class="btns">
+                    <button class="pre">Premium</button>&nbsp;&nbsp;
+                    <button>Single Page</button>
+                </div>
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima
+                    quisquam omnis, possimus molestiae reiciendis ducimus saepe amet </p>
+                <div class="select-btns">
+                    <button>Preview</button>&nbsp;&nbsp;
+                    <button>Select</button>
+                </div>
             </div>
-        </div>
 
-        <div class="theme">
-            <h1>Quick Start</h1>
-            <div class="btns">
-                <button class="pre">Premium</button>&nbsp;&nbsp;
-                <button>Single Page</button>
+            <div class="theme">
+                <h1>Quick Start</h1>
+                <div class="btns">
+                    <button class="pre">Premium</button>&nbsp;&nbsp;
+                    <button>Single Page</button>
+                </div>
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima
+                    quisquam omnis, possimus molestiae reiciendis ducimus saepe amet</p>
+                <div class="select-btns">
+                    <button>Preview</button>&nbsp;&nbsp;
+                    <button>Select</button>
+                </div>
             </div>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet</p>
-            <div class="select-btns">
-                <button>Preview</button>&nbsp;&nbsp;
-                <button>Select</button>
-            </div>
-        </div>
 
-        <div class="theme">
-        <h1>iPortfolio</h1>
-        <div class="btns">
-            <button class="pre">Premium</button>&nbsp;&nbsp;
-            <button>Single Page</button>
+            <div class="theme">
+                <h1>iPortfolio</h1>
+                <div class="btns">
+                    <button class="pre">Premium</button>&nbsp;&nbsp;
+                    <button>Single Page</button>
+                </div>
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima
+                    quisquam omnis, possimus molestiae reiciendis ducimus saepe amet </p>
+                <div class="select-btns">
+                    <button>Preview</button>&nbsp;&nbsp;
+                    <button>Select</button>
+                </div>
+            </div>
+
         </div>
-        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet </p>
-        <div class="select-btns">
-            <button>Preview</button>&nbsp;&nbsp;
-            <button>Select</button>
-        </div>
-    </div>  
-  
-</div> 
-</section>
+    </section>
+
+    <script>
+        const previewButtons = document.querySelectorAll('div.component div.lower .right-work .btn .check-website');
+
+        previewButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Show popup
+                const popupContainer = document.getElementById('popupContainer');
+                popupContainer.style.visibility = 'visible';
+            });
+        });
+
+        // Close popup when close button is clicked
+        const closePopupButton = document.getElementById('closePopup');
+        closePopupButton.addEventListener('click', () => {
+            const popupContainer = document.getElementById('popupContainer');
+            popupContainer.style.visibility = 'hidden';
+        });
+
+    </script>
 
     <script src="./script.js" />
+
+    
 </body>
 
 </html>
