@@ -457,26 +457,51 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
 
         let themesData = [];
 
-        for(let i = 1; i <= themes.length; i++) {
-            await fetch('')
+        for (let i = 1; i <= themes.length; i++) {
+            let dataCall = await fetch('https://api-library-va.vercel.app/getTheme/' + i);
+            let data = await dataCall.json();
+            themesData.push(data.data);
         }
+        console.log(themesData);
 
-        themesData.forEach(themeData => {
+        for (let i = 0; i < themesData.length; i++) {
+            const themeData = themesData[i];
             const themeDiv = document.createElement('div');
             themeDiv.classList.add('theme');
 
             const h1 = document.createElement('h1');
-            h1.textContent = themeData.title;
+            h1.textContent = themeData.name;
             themeDiv.appendChild(h1);
 
             const btnsDiv = document.createElement('div');
             btnsDiv.classList.add('btns');
-            themeData.buttons.forEach(buttonText => {
+            for (let j = 0; j < themeData.category.length; j++) {
+                const buttonText = themeData.category[j];
                 const button = document.createElement('button');
-                button.textContent = buttonText;
+                button.textContent = buttonText.replace(/-/g, ' ');
                 btnsDiv.appendChild(button);
-            });
+            }
             themeDiv.appendChild(btnsDiv);
+
+            let isDragging = false;
+            let startX;
+
+            btnsDiv.onmousedown = (event) => {
+                isDragging = true;
+                startX = event.clientX;
+            };
+
+            document.addEventListener('mousemove', (event) => {
+                if (isDragging) {
+                    const deltaX = startX - event.clientX;
+                    btnsDiv.scrollLeft += deltaX;
+                    startX = event.clientX;
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
 
             const p = document.createElement('p');
             p.textContent = themeData.description;
@@ -487,13 +512,17 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
             const previewBtn = document.createElement('button');
             previewBtn.textContent = 'Preview';
             const selectBtn = document.createElement('button');
+            previewBtn.onclick = () => {
+                window.location.href = 'https://library-va.vercel.app/' + themesData[i].id + '/';
+            }
             selectBtn.textContent = 'Select';
             selectBtnsDiv.appendChild(previewBtn);
             selectBtnsDiv.appendChild(selectBtn);
             themeDiv.appendChild(selectBtnsDiv);
 
             allThemesDiv.appendChild(themeDiv);
-        });
+        }
+
 
         outerSection.appendChild(allThemesDiv);
 

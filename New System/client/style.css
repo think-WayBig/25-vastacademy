@@ -511,35 +511,38 @@ section.outer div.all-themes div.theme h1 {
 
 section.outer div.all-themes div.theme p {
     font-family: sans-serif;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show only 2 lines of text */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
 section.outer div.all-themes div.theme div.btns {
     display: flex;
     gap: 15px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    cursor: grab;
 }
 
-section.outer div.all-themes div.theme div.btns button.pre {
-    border: none;
-    height: 25px;
-    width: 100px;
-    font-size: 15px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    color: rgb(90, 88, 88);
-    font-weight: bold;
-    margin-bottom: 13px;
+section.outer div.all-themes div.theme div.btns::-webkit-scrollbar {
+    display: none;
 }
 
 section.outer div.all-themes div.theme div.btns button {
     border: none;
-    height: 25px;
-    width: 130px;
+    padding: 2px 5px;
     font-size: 15px;
     border-radius: 20px;
+    white-space: nowrap;
     font-family: sans-serif;
     color: rgb(90, 88, 88);
     font-weight: bold;
     margin-bottom: 13px;
+    text-transform: capitalize;
+    cursor: grab;
 }
 
 section.outer div.all-themes div.theme div.select-btns {
