@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 section.header {
@@ -429,7 +429,7 @@ div.component div.lower .sonar-wave {
     border-radius: 50%;
     background-color: #0cc0df;
     opacity: 0;
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -467,15 +467,15 @@ section.outer {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-    visibility: hidden;
+    z-index: 99999;
 }
 
 
-section.outer div.all-themes{
+section.outer div.all-themes {
     position: relative;
     background-color: white;
     width: 90%;
@@ -489,11 +489,12 @@ section.outer div.all-themes{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-section.outer div.all-themes div.cross-icon{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size:30px ;
+section.outer div.all-themes div.cross-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 section.outer div.all-themes div.theme {
@@ -509,8 +510,13 @@ section.outer div.all-themes div.theme h1 {
     font-family: sans-serif;
 }
 
-section.outer div.all-themes div.theme p{
+section.outer div.all-themes div.theme p {
     font-family: sans-serif;
+}
+
+section.outer div.all-themes div.theme div.btns {
+    display: flex;
+    gap: 15px;
 }
 
 section.outer div.all-themes div.theme div.btns button.pre {
@@ -537,6 +543,11 @@ section.outer div.all-themes div.theme div.btns button {
     margin-bottom: 13px;
 }
 
+section.outer div.all-themes div.theme div.select-btns {
+    display: flex;
+    gap: 15px;
+}
+
 section.outer div.all-themes div.theme div.select-btns button {
     border: none;
     height: 32px;
@@ -546,4 +557,9 @@ section.outer div.all-themes div.theme div.select-btns button {
     color: black;
     font-weight: bold;
     margin-top: 30px;
+    cursor: pointer;
+}
+
+section.outer div.all-themes div.theme div.select-btns button:hover {
+    background-color: darkgrey;
 }

@@ -1,36 +1,36 @@
 // function generateDynamicComponent1(projectID, clientName, clientURL, category, status, progress, imgSrc) {
-    
+
 //     var componentDiv = document.createElement('div');
 //     componentDiv.classList.add('component');
 
-    
+
 //     var upperDiv = document.createElement('div');
 //     upperDiv.classList.add('upper');
 
-    
+
 //     var imgDiv = document.createElement('div');
 //     imgDiv.classList.add('img');
 
-    
+
 //     var imgElement = document.createElement('img');
 //     imgElement.setAttribute('src', imgSrc);
 //     imgDiv.appendChild(imgElement);
 
-    
+
 //     var rightDiv = document.createElement('div');
 //     rightDiv.classList.add('right');
 
-    
+
 //     var projectIDP = document.createElement('p');
 //     projectIDP.textContent = 'Project ID: ' + projectID;
 //     rightDiv.appendChild(projectIDP);
 
-    
+
 //     var clientNameH1 = document.createElement('h1');
 //     clientNameH1.textContent = clientName;
 //     rightDiv.appendChild(clientNameH1);
 
-    
+
 //     var clientURLH4 = document.createElement('h4');
 //     var clientURLAnchor = document.createElement('a');
 //     clientURLAnchor.setAttribute('href', clientURL);
@@ -38,7 +38,7 @@
 //     clientURLH4.appendChild(clientURLAnchor);
 //     rightDiv.appendChild(clientURLH4);
 
-    
+
 //     var categoryDiv = document.createElement('div');
 //     categoryDiv.setAttribute('id', 'category');
 //     var categoryP = document.createElement('p');
@@ -52,23 +52,23 @@
 //     upperDiv.appendChild(imgDiv);
 //     upperDiv.appendChild(rightDiv);
 
-    
+
 //     componentDiv.appendChild(upperDiv);
 
-    
+
 //     var hrElement = document.createElement('hr');
 //     componentDiv.appendChild(hrElement);
 
-    
+
 //     var lowerDiv = document.createElement('div');
 //     lowerDiv.classList.add('lower');
 
-    
+
 //     var projectStatusH3 = document.createElement('h3');
 //     projectStatusH3.textContent = 'Project Status';
 //     lowerDiv.appendChild(projectStatusH3);
 
-    
+
 //     var statusP = document.createElement('p');
 //     statusP.classList.add('status');
 //     statusP.textContent = status;
@@ -78,7 +78,7 @@
 //     var progressBarDiv = document.createElement('div');
 //     progressBarDiv.classList.add('progress-bar');
 
-    
+
 //     var progressDiv = document.createElement('div');
 //     progressDiv.classList.add('progress');
 //     progressDiv.style.width = progress;
@@ -88,7 +88,7 @@
 //     progressBarDiv.appendChild(progressDiv);
 //     lowerDiv.appendChild(progressBarDiv);
 
-   
+
 //     var detailsP = document.createElement('p');
 //     detailsP.textContent = 'Check Details';
 //     detailsP.classList.add('check-details');
@@ -124,8 +124,27 @@
 
 // generateDynamicComponent('00002', 'Client Name', 'https://www.hi.com', 'Portfolio', 'Last Testing Stage - Deadline 25th March', '70%', 'https://fakeimg.pl/100x100')
 
+// Create theme divs
 
-async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress) {
+const themesData = [
+    {
+        title: 'iPortfolio',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+        buttons: ['Premium', 'Single Page']
+    },
+    {
+        title: 'Quick Start',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+        buttons: ['Premium', 'Single Page']
+    },
+    {
+        title: 'iPortfolio',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
+        buttons: ['Premium', 'Single Page']
+    }
+];
+
+async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themesData) {
     // Create main container element
     var componentDiv = document.createElement('div');
     componentDiv.classList.add('component');
@@ -185,11 +204,11 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     if (category == "Portfolio Website") {
         // Define the progress ball and tick elements
         const progressBall = `<img style="position: absolute;z-index: 9999;width: 20px!important;" src="./assets/ball.png" alt="">
-<div class="sonar-wave sonar-wave1">
-    <div class="sonar-wave sonar-wave2"></div>
-    <div class="sonar-wave sonar-wave3"></div>
-    <div class="sonar-wave sonar-wave4"></div>
-</div>`;
+            <div class="sonar-wave sonar-wave1">
+                <div class="sonar-wave sonar-wave2"></div>
+                <div class="sonar-wave sonar-wave3"></div>
+                <div class="sonar-wave sonar-wave4"></div>
+            </div>`;
         const progressTick = `<img src="./assets/tick.png" alt="">`;
 
         // Create project status elements
@@ -238,11 +257,11 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     } else if (category == "Static Website") {
         // Define the progress ball and tick elements
         const progressBall = `<img style="position: absolute;z-index: 9999;width: 20px!important;" src="./assets/ball.png" alt="">
-<div class="sonar-wave sonar-wave1">
-    <div class="sonar-wave sonar-wave2"></div>
-    <div class="sonar-wave sonar-wave3"></div>
-    <div class="sonar-wave sonar-wave4"></div>
-</div>`;
+            <div class="sonar-wave sonar-wave1">
+                <div class="sonar-wave sonar-wave2"></div>
+                <div class="sonar-wave sonar-wave3"></div>
+                <div class="sonar-wave sonar-wave4"></div>
+            </div>`;
         const progressTick = `<img src="./assets/tick.png" alt="">`;
 
         // Create project status elements
@@ -291,11 +310,11 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     } else if (category == "Dynamic Website") {
         // Define the progress ball and tick elements
         const progressBall = `<img style="position: absolute;z-index: 9999;width: 20px!important;" src="./assets/ball.png" alt="">
-<div class="sonar-wave sonar-wave1">
-    <div class="sonar-wave sonar-wave2"></div>
-    <div class="sonar-wave sonar-wave3"></div>
-    <div class="sonar-wave sonar-wave4"></div>
-</div>`;
+            <div class="sonar-wave sonar-wave1">
+                <div class="sonar-wave sonar-wave2"></div>
+                <div class="sonar-wave sonar-wave3"></div>
+                <div class="sonar-wave sonar-wave4"></div>
+            </div>`;
         const progressTick = `<img src="./assets/tick.png" alt="">`;
 
         // Create project status elements
@@ -390,72 +409,54 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
     btnDiv.classList.add('btn');
 
     // More Details button
-    var moreDetailButton = document.createElement('button');
-    moreDetailButton.classList.add('more-detail');
-    moreDetailButton.textContent = 'More Details';
-    btnDiv.appendChild(moreDetailButton);
+    // var moreDetailButton = document.createElement('button');
+    // moreDetailButton.classList.add('more-detail');
+    // moreDetailButton.textContent = 'More Details';
+    // btnDiv.appendChild(moreDetailButton);
 
     // Check Website button
     var checkWebsiteButton = document.createElement('button');
-    checkWebsiteButton.classList.add('check-website');
+    checkWebsiteButton.classList.add('more-detail');
     checkWebsiteButton.textContent = 'Check Website';
     btnDiv.appendChild(checkWebsiteButton);
 
     rightWorkDiv.appendChild(btnDiv);
-    
 
     lowerDiv.appendChild(rightWorkDiv);
     // Append lower section to main container
     componentDiv.appendChild(lowerDiv);
 
-    checkWebsiteButton.addEventListener('click', async function() {
-        // Call the generatePopup function
-        await generatePopup();
-    });
+    checkWebsiteButton.onclick = () => {
+        generatePopup();
+    };
 
     async function generatePopup() {
         // Create the outer section
         const outerSection = document.createElement('section');
         outerSection.classList.add('outer');
         outerSection.setAttribute('id', 'popupContainer');
-    
+
         // Create the div for all themes
         const allThemesDiv = document.createElement('div');
         allThemesDiv.classList.add('all-themes');
-    
+
         // Create the div for cross icon
         const crossIconDiv = document.createElement('div');
         crossIconDiv.classList.add('cross-icon');
         crossIconDiv.innerHTML = '<i class="fa fa-times" id="closePopup" aria-hidden="true"></i>';
         allThemesDiv.appendChild(crossIconDiv);
-    
-        // Create theme divs
-        const themesData = [
-            {
-                title: 'iPortfolio',
-                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-                buttons: ['Premium', 'Single Page']
-            },
-            {
-                title: 'Quick Start',
-                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-                buttons: ['Premium', 'Single Page']
-            },
-            {
-                title: 'iPortfolio',
-                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-                buttons: ['Premium', 'Single Page']
-            }
-        ];
-    
+        crossIconDiv.onclick = () => {
+            document.body.removeChild(containerDiv);
+        }
+
         themesData.forEach(themeData => {
             const themeDiv = document.createElement('div');
             themeDiv.classList.add('theme');
-    
+
             const h1 = document.createElement('h1');
             h1.textContent = themeData.title;
             themeDiv.appendChild(h1);
-    
+
             const btnsDiv = document.createElement('div');
             btnsDiv.classList.add('btns');
             themeData.buttons.forEach(buttonText => {
@@ -464,11 +465,11 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
                 btnsDiv.appendChild(button);
             });
             themeDiv.appendChild(btnsDiv);
-    
+
             const p = document.createElement('p');
             p.textContent = themeData.description;
             themeDiv.appendChild(p);
-    
+
             const selectBtnsDiv = document.createElement('div');
             selectBtnsDiv.classList.add('select-btns');
             const previewBtn = document.createElement('button');
@@ -478,60 +479,38 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
             selectBtnsDiv.appendChild(previewBtn);
             selectBtnsDiv.appendChild(selectBtn);
             themeDiv.appendChild(selectBtnsDiv);
-    
+
             allThemesDiv.appendChild(themeDiv);
         });
-    
-        outerSection.appendChild(allThemesDiv);
-    
-        // Create a container div to hold the outer section
-    const containerDiv = document.createElement('div');
-    containerDiv.appendChild(outerSection);
 
-    // Append the container to the body
-    document.body.appendChild(containerDiv);
-}
+        outerSection.appendChild(allThemesDiv);
+
+        // Create a container div to hold the outer section
+        const containerDiv = document.createElement('div');
+        containerDiv.appendChild(outerSection);
+
+        // Append the container to the body
+        document.body.appendChild(containerDiv);
+    }
     // Append generated component to body or any other parent element
     document.querySelector("#main-container").appendChild(componentDiv);
 };
 
-
-
 async function dataCall() {
-        try {
-            let res = await fetch("http://localhost:3000/getProjects");
-            let data = await res.json();
-            console.log(data);
-            data.forEach(client => {
-                let { pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress } = client;
-                generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress );
-            });
-        } catch (error) {
-            console.log(error);
-        }
+    try {
+        let res = await fetch("http://localhost:3000/getProjects");
+        let data = await res.json();
+        console.log(data);
+        data.forEach(client => {
+            let { pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress } = client;
+            generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themesData);
+        });
+    } catch (error) {
+        console.log(error);
     }
-    
-    dataCall();
+}
+
+dataCall();
 
 // Call the function with dynamic data values
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'https://vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100','Sandeep Singh',  'Client must choose a model within 3 days, or this account will be removed', '4');
-
-
-
-
-const previewButtons = document.querySelectorAll('div.component div.lower .right-work .btn .check-website');
-
-previewButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Show popup
-        const popupContainer = document.getElementById('popupContainer');
-        popupContainer.style.visibility = 'visible';
-    });
-});
-
-// Close popup when close button is clicked
-const closePopupButton = document.getElementById('closePopup');
-closePopupButton.addEventListener('click', () => {
-    const popupContainer = document.getElementById('popupContainer');
-    popupContainer.style.visibility = 'hidden';
-});
+generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData);
