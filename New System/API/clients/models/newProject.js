@@ -40,11 +40,15 @@ const newProject = new mongoose.Schema({
     },
     themes: {
         type: Array,        // [{themeId: '2', selected: 0}, {themeId: '3', selected: 0}, {themeId: '4', selected: 0}]
-        required: true
+        // required: true,
+        default: [{ themeId: '1', selected: 0 }, { themeId: '2', selected: 0 }, { themeId: '3', selected: 0 }]
     },
     websiteBtn: {
         type: Object,       // {text: "Select Theme", state: "0"} {text: "Check Website", state: "1"}
-        required: true
+        // required: true,
+        default: {
+            text: "Select Theme", state: "0" 
+        }
     }
 });
 

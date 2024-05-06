@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 section.header {
@@ -17,7 +17,7 @@ section.header {
     align-items: center;
     height: 60px;
     background-color: black;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px 0px rgba(29, 26, 26, 0.25);
 }
 
 .selection-bar .container-sort select {
@@ -51,8 +51,7 @@ section.header {
 section.main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px;
+    gap: 50px;
     padding: 30px 80px;
     font-family: "Montserrat", sans-serif;
 }
@@ -320,7 +319,7 @@ div.component div.lower .right-work .btn {
 }
 
 div.component div.lower .right-work .btn .more-detail {
-    width: 100px;
+    width: 150px;
     height: 40px;
     border-radius: 0px;
     border: none;
@@ -429,7 +428,7 @@ div.component div.lower .sonar-wave {
     border-radius: 50%;
     background-color: #0cc0df;
     opacity: 0;
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -467,15 +466,15 @@ section.outer {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-    visibility: hidden;
+    z-index: 99999;
 }
 
 
-section.outer div.all-themes{
+section.outer div.all-themes {
     position: relative;
     background-color: white;
     width: 90%;
@@ -489,11 +488,12 @@ section.outer div.all-themes{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-section.outer div.all-themes div.cross-icon{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size:30px ;
+section.outer div.all-themes div.cross-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 section.outer div.all-themes div.theme {
@@ -509,32 +509,45 @@ section.outer div.all-themes div.theme h1 {
     font-family: sans-serif;
 }
 
-section.outer div.all-themes div.theme p{
+section.outer div.all-themes div.theme p {
     font-family: sans-serif;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show only 2 lines of text */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
-section.outer div.all-themes div.theme div.btns button.pre {
-    border: none;
-    height: 25px;
-    width: 100px;
-    font-size: 15px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    color: rgb(90, 88, 88);
-    font-weight: bold;
-    margin-bottom: 13px;
+section.outer div.all-themes div.theme div.btns {
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    cursor: grab;
+}
+
+section.outer div.all-themes div.theme div.btns::-webkit-scrollbar {
+    display: none;
 }
 
 section.outer div.all-themes div.theme div.btns button {
     border: none;
-    height: 25px;
-    width: 130px;
+    padding: 2px 5px;
     font-size: 15px;
     border-radius: 20px;
+    white-space: nowrap;
     font-family: sans-serif;
     color: rgb(90, 88, 88);
     font-weight: bold;
     margin-bottom: 13px;
+    text-transform: capitalize;
+    cursor: grab;
+}
+
+section.outer div.all-themes div.theme div.select-btns {
+    display: flex;
+    gap: 15px;
 }
 
 section.outer div.all-themes div.theme div.select-btns button {
@@ -546,4 +559,9 @@ section.outer div.all-themes div.theme div.select-btns button {
     color: black;
     font-weight: bold;
     margin-top: 30px;
+    cursor: pointer;
+}
+
+section.outer div.all-themes div.theme div.select-btns button:hover {
+    background-color: darkgrey;
 }

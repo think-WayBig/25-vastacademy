@@ -83,7 +83,8 @@ app.post('/newProject', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.json({
-            msg: "Data not sent!"
+            msg: "Data not sent!",
+            error: error
         });
     }
 })
@@ -254,6 +255,44 @@ app.post('/uploadDevImage', upload.single('file'), async (req, res) => {
         });
     }
 });
+
+app.put('/updateTheme/:pro_id', async (req, res) => {
+    const { pro_id } = req.params.pro_id;
+    const { themes } = req.body;
+
+    try {
+        // Find the project by pro_id
+        const project = await newProject.findOne({ pro_id });
+
+        if (!project) {
+            return res.status(404).json({
+                msg: "Project not found",
+                status: "error",
+                data: null
+            });
+        }
+
+        // Update themes for the project
+        project.themes = themes;
+
+        // Save the updated project
+        await project.save();
+
+        res.json({
+            msg: "Themes updated successfully",
+            status: "success",
+            data: project
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: "Internal server error",
+            status: "error",
+            error: error.message
+        });
+    }
+});
+
 
 
 // read, create, update, delete
