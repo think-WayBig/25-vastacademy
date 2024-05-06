@@ -431,8 +431,14 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
             generatePopup();
         };
     } else {
+        let selectedThemeId;
+        themes.forEach(theme => {
+            if (theme.selected === 1) {
+                selectedThemeId = theme.themeId;
+            }
+        });
         checkWebsiteButton.onclick = () => {
-            location.href = "";
+            location.href = "https://library-va.vercel.app/" + selectedThemeId + "/";
         };
     }
 
@@ -518,28 +524,37 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
             selectBtn.textContent = 'Select';
             selectBtn.onclick = async () => {
                 try {
-                    const data = { selected: 1 }; // Data to be sent in array form
+                    themes[i].selected = 1;
                     const updatedTheme = await fetch('http://localhost:3000/updateTheme/' + pro_id, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ themes: data }) // Sending data as an object with themes property
+                        body: JSON.stringify({ themes }) // Sending data as an object with themes property
                     });
-                    const updatedThemeData = await updatedTheme.json();
-                    console.log(themesData[i].id + updatedThemeData);
+
+                    await fetch('http://localhost:3000/updateBtnState/' + pro_id, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                    // console.log(themesData[i].id + updatedThemeData);
                 } catch (error) {
                     console.error(error);
                 }
             };
-            
+
             selectBtnsDiv.appendChild(previewBtn);
             selectBtnsDiv.appendChild(selectBtn);
             themeDiv.appendChild(selectBtnsDiv);
 
             allThemesDiv.appendChild(themeDiv);
         }
-
 
         outerSection.appendChild(allThemesDiv);
 
@@ -570,8 +585,8 @@ async function dataCall() {
 
 dataCall();
 
-let websiteBtn = {
-    text: 'Select Theme', state: "0"
-}
+// let websiteBtn = {
+//     text: 'Select Theme', state: "0"
+// }
 
-generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData, websiteBtn);
+// generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData, websiteBtn);

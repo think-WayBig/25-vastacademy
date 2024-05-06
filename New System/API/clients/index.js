@@ -134,7 +134,7 @@ app.delete('/deleteProject/:projectId', async (req, res) => {
                 check: 2 // Not Found
             })
         } else if (NewProject != -1) {
-           await newProject.deleteOne({ pro_id: req.params.projectId });
+            await newProject.deleteOne({ pro_id: req.params.projectId });
             res.json({
                 check: 1, // Project found
                 msg: 'Project deleted successfully'
@@ -257,7 +257,7 @@ app.post('/uploadDevImage', upload.single('file'), async (req, res) => {
 });
 
 app.put('/updateTheme/:pro_id', async (req, res) => {
-    const { pro_id } = req.params.pro_id;
+    const pro_id = req.params.pro_id;
     const { themes } = req.body;
 
     try {
@@ -268,7 +268,8 @@ app.put('/updateTheme/:pro_id', async (req, res) => {
             return res.status(404).json({
                 msg: "Project not found",
                 status: "error",
-                data: null
+                data: null,
+                project_id: pro_id
             });
         }
 
@@ -293,7 +294,33 @@ app.put('/updateTheme/:pro_id', async (req, res) => {
     }
 });
 
+app.put('/updateBtnState/:pro_id', async (req, res) => {
+    const pro_id = req.params.pro_id;
 
+    try {
+        let NewProject = await newProject.findOne({ pro_id });
+
+        if (NewProject != -1) {
+            // Find the project by pro_id
+            await newProject.findOneAndUpdate({ pro_id }, { websiteBtn: { text: "Check Website", state: "1" } });
+
+            res.send({
+                check: '1'
+            })
+        } else {
+            res.send({
+                check: '2',
+                project_id: pro_id
+            })
+        }
+    } catch (error) {
+        res.json({
+            check: "0",
+            error: error.message,
+            pro_id
+        });
+    }
+})
 
 // read, create, update, delete
 // get, post, put, delete
