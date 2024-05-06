@@ -62,16 +62,19 @@ app.get('/getProject/:pro_id', async (req, res) => {
 
 //Create a new project
 app.post('/newProject', async (req, res) => {
-    let { category, pro_id, domain, client_name, dev_name, pro_status, progress, pro_logo } = req.body;
+    let { category, pro_id, domain, client_name, dev_name, pro_status, progress, pro_logo, themes, dev_logo } = req.body;
     try {
         let NewProject = new newProject({
-            "pro_id": pro_id,
-            "client_name": client_name,
-            "domain": domain,
-            "category": category,
-            "dev_name": dev_name,
-            "pro_status": pro_status,
-            "progress": progress
+            pro_id,
+            client_name,
+            domain,
+            category,
+            dev_name,
+            pro_status,
+            progress,
+            pro_logo,
+            dev_logo,
+            themes
         })
 
         await NewProject.save();
