@@ -126,23 +126,8 @@
 
 // Create theme divs
 
-const themesData = [
-    {
-        title: 'iPortfolio',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-        buttons: ['Premium', 'Single Page']
-    },
-    {
-        title: 'Quick Start',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-        buttons: ['Premium', 'Single Page']
-    },
-    {
-        title: 'iPortfolio',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet in veniam laboriosam minima quisquam omnis, possimus molestiae reiciendis ducimus saepe amet',
-        buttons: ['Premium', 'Single Page']
-    }
-];
+
+
 
 async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, category, dev_logo, dev_name, pro_status, progress, themes, websiteBtn) {
     // Create main container element
@@ -428,7 +413,7 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
 
     if (websiteBtn.state == 0) {
         checkWebsiteButton.onclick = () => {
-            generatePopup();
+            generatePopup('../1/');
         };
     } else {
         let selectedThemeId;
@@ -442,7 +427,7 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
         };
     }
 
-    async function generatePopup() {
+    async function generatePopup(initialThemeURL) {
         // Create the outer section
         const outerSection = document.createElement('section');
         outerSection.classList.add('outer');
@@ -472,57 +457,54 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
 
         for (let i = 0; i < themesData.length; i++) {
             const themeData = themesData[i];
-            const themeDiv = document.createElement('div');
-            themeDiv.classList.add('theme');
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('fixed-buttons');
+        buttonContainer.setAttribute('id', 'buttonContainer');
 
-            const h1 = document.createElement('h1');
-            h1.textContent = themeData.name;
-            themeDiv.appendChild(h1);
+        // Function to open a theme in the popup
+        const openThemeInPopup = (themeURL) => {
+            themeDiv.setAttribute('src', themeURL);
+        };
 
-            const btnsDiv = document.createElement('div');
-            btnsDiv.classList.add('btns');
-            for (let j = 0; j < themeData.category.length; j++) {
-                const buttonText = themeData.category[j];
-                const button = document.createElement('button');
-                button.textContent = buttonText.replace(/-/g, ' ');
-                btnsDiv.appendChild(button);
-            }
-            themeDiv.appendChild(btnsDiv);
+        // Create buttons for each theme
+        const button1 = document.createElement('button');
+        button1.textContent = 'Theme 1';
+        button1.addEventListener('click', () => {
+            openThemeInPopup('../1/');
+        });
 
-            let isDragging = false;
-            let startX;
+        const button2 = document.createElement('button');
+        button2.textContent = 'Theme 2';
+        button2.addEventListener('click', () => {
+            openThemeInPopup('../2/');
+        });
 
-            btnsDiv.onmousedown = (event) => {
-                isDragging = true;
-                startX = event.clientX;
-            };
+        const button3 = document.createElement('button');
+        button3.textContent = 'Theme 3';
+        button3.addEventListener('click', () => {
+            openThemeInPopup('../3/');
+        });
 
-            document.addEventListener('mousemove', (event) => {
-                if (isDragging) {
-                    const deltaX = startX - event.clientX;
-                    btnsDiv.scrollLeft += deltaX;
-                    startX = event.clientX;
-                }
-            });
+        // Append buttons to the button container
+        buttonContainer.appendChild(button1);
+        buttonContainer.appendChild(button2);
+        buttonContainer.appendChild(button3);
 
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
+        const selectBtn = document.createElement('button');
+        selectBtn.setAttribute('id', 'selectModel');
+        selectBtn.textContent = 'Select This Model';
+        selectBtn.addEventListener('click', () => {
+            const model = document.createElement('div');
+            model.classList.add('modal');
+            model.setAttribute('id', 'modal');
 
-            const p = document.createElement('p');
-            p.textContent = themeData.description;
-            themeDiv.appendChild(p);
+            const para = document.createElement('p');
+            para.textContent = 'Are you sure you want to select this model?';
 
-            const selectBtnsDiv = document.createElement('div');
-            selectBtnsDiv.classList.add('select-btns');
-            const previewBtn = document.createElement('button');
-            previewBtn.textContent = 'Preview';
-            previewBtn.onclick = () => {
-                window.location.href = 'https://library-va.vercel.app/' + themesData[i].id + '/';
-            }
-            const selectBtn = document.createElement('button');
-            selectBtn.textContent = 'Select';
-            selectBtn.onclick = async () => {
+            let yesBtn = document.createElement('button');
+            yesBtn.setAttribute('id', 'yesButton');
+            yesBtn.textContent = 'Yes';
+            yesBtn.onclick = async () => {
                 try {
                     themes[i].selected = 1;
                     const updatedTheme = await fetch('http://localhost:3000/updateTheme/' + pro_id, {
@@ -530,7 +512,7 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ themes }) // Sending data as an object with themes property
+                        body: JSON.stringify({ themes })
                     });
 
                     await fetch('http://localhost:3000/updateBtnState/' + pro_id, {
@@ -543,30 +525,169 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
-                    // console.log(themesData[i].id + updatedThemeData);
                 } catch (error) {
                     console.error(error);
                 }
             };
 
-            selectBtnsDiv.appendChild(previewBtn);
-            selectBtnsDiv.appendChild(selectBtn);
-            themeDiv.appendChild(selectBtnsDiv);
+            let noBtn = document.createElement('button');
+            noBtn.setAttribute('id', 'noButton');
+            noBtn.textContent = 'No';
+            noBtn
+                .addEventListener('click', () => {
+                    model.remove();
+                });
 
-            allThemesDiv.appendChild(themeDiv);
-        }
+            model.appendChild(para);
+            model.appendChild(yesBtn);
+            model.appendChild(noBtn);
+
+            document.body.appendChild(model);
+        });
+
+        buttonContainer.appendChild(selectBtn);
+
+        // Create iframe for displaying themes
+        const themeDiv = document.createElement('iframe');
+        themeDiv.setAttribute('frameborder', '0');
+        themeDiv.setAttribute('width', '100%');
+        themeDiv.setAttribute('height', '100%');
+        themeDiv.setAttribute('src', initialThemeURL);
+        allThemesDiv.appendChild(themeDiv);
+
+    allThemesDiv.appendChild(buttonContainer);
+
+    };
 
         outerSection.appendChild(allThemesDiv);
 
-        // Create a container div to hold the outer section
         const containerDiv = document.createElement('div');
         containerDiv.appendChild(outerSection);
 
-        // Append the container to the body
         document.body.appendChild(containerDiv);
     }
+
+
+    // async function generatePopup() {
+
+    //     const outerSection = document.createElement('section');
+    //     outerSection.classList.add('outer');
+    //     outerSection.setAttribute('id', 'popupContainer');
+
+    //     const allThemesDiv = document.createElement('div');
+    //     allThemesDiv.classList.add('all-themes');
+
+    //     const crossIconDiv = document.createElement('div');
+    //     crossIconDiv.classList.add('cross-icon');
+    //     crossIconDiv.innerHTML = '<i class="fa fa-times" id="closePopup" aria-hidden="true"></i>';
+    //     allThemesDiv.appendChild(crossIconDiv);
+    //     crossIconDiv.onclick = () => {
+    //         document.body.removeChild(containerDiv);
+    //     }
+
+    //     let themesData = [];
+
+    //     for (let i = 1; i <= themes.length; i++) {
+    //         let dataCall = await fetch('https://api-library-va.vercel.app/getTheme/' + i);
+    //         let data = await dataCall.json();
+    //         themesData.push(data.data);
+    //     }
+    //     console.log(themesData);
+
+    //     for (let i = 0; i < themesData.length; i++) {
+    //         const themeData = themesData[i];
+    //         const themeDiv = document.createElement('div');
+    //         themeDiv.classList.add('theme');
+
+    //         const h1 = document.createElement('h1');
+    //         h1.textContent = themeData.name;
+    //         themeDiv.appendChild(h1);
+
+    //         const btnsDiv = document.createElement('div');
+    //         btnsDiv.classList.add('btns');
+    //         for (let j = 0; j < themeData.category.length; j++) {
+    //             const buttonText = themeData.category[j];
+    //             const button = document.createElement('button');
+    //             button.textContent = buttonText.replace(/-/g, ' ');
+    //             btnsDiv.appendChild(button);
+    //         }
+    //         themeDiv.appendChild(btnsDiv);
+
+    //         let isDragging = false;
+    //         let startX;
+
+    //         btnsDiv.onmousedown = (event) => {
+    //             isDragging = true;
+    //             startX = event.clientX;
+    //         };
+
+    //         document.addEventListener('mousemove', (event) => {
+    //             if (isDragging) {
+    //                 const deltaX = startX - event.clientX;
+    //                 btnsDiv.scrollLeft += deltaX;
+    //                 startX = event.clientX;
+    //             }
+    //         });
+
+    //         document.addEventListener('mouseup', () => {
+    //             isDragging = false;
+    //         });
+
+    //         const p = document.createElement('p');
+    //         p.textContent = themeData.description;
+    //         themeDiv.appendChild(p);
+
+    //         const selectBtnsDiv = document.createElement('div');
+    //         selectBtnsDiv.classList.add('select-btns');
+    //         const previewBtn = document.createElement('button');
+    //         previewBtn.textContent = 'Preview';
+    //         previewBtn.onclick = () => {
+    //             window.location.href = 'https://library-va.vercel.app/' + themesData[i].id + '/';
+    //         }
+    //         const selectBtn = document.createElement('button');
+    //         selectBtn.textContent = 'Select';
+    //         selectBtn.onclick = async () => {
+    //             try {
+    //                 themes[i].selected = 1;
+    //                 const updatedTheme = await fetch('http://localhost:3000/updateTheme/' + pro_id, {
+    //                     method: 'PUT',
+    //                     headers: {
+    //                         'Content-Type': 'application/json'
+    //                     },
+    //                     body: JSON.stringify({ themes }) 
+    //                 });
+
+    //                 await fetch('http://localhost:3000/updateBtnState/' + pro_id, {
+    //                     method: 'PUT',
+    //                     headers: {
+    //                         'Content-Type': 'application/json'
+    //                     }
+    //                 });
+
+    //                 setTimeout(() => {
+    //                     window.location.reload();
+    //                 }, 1000);
+    //             } catch (error) {
+    //                 console.error(error);
+    //             }
+    //         };
+
+    //         selectBtnsDiv.appendChild(previewBtn);
+    //         selectBtnsDiv.appendChild(selectBtn);
+    //         themeDiv.appendChild(selectBtnsDiv);
+
+    //         allThemesDiv.appendChild(themeDiv);
+    //     }
+
+    //     outerSection.appendChild(allThemesDiv);
+
+    //     const containerDiv = document.createElement('div');
+    //     containerDiv.appendChild(outerSection);
+
+    //     document.body.appendChild(containerDiv);
+    // }
     // Append generated component to body or any other parent element
-    document.querySelector("#main-container").appendChild(componentDiv);
+    document.querySelector("#main-container").append(componentDiv);
 };
 
 async function dataCall() {
@@ -585,8 +706,6 @@ async function dataCall() {
 
 dataCall();
 
-// let websiteBtn = {
-//     text: 'Select Theme', state: "0"
-// }
-
-// generateDynamicComponent2('https://fakeimg.pl/100x100', '00001', '3G-Digital', 'vastacademy.in', 'Static Website', 'https://fakeimg.pl/100x100', 'Sandeep Singh', 'Client must choose a model within 3 days, or this account will be removed', '4', themesData, websiteBtn);
+let websiteBtn = {
+    text: 'Select Theme', state: "0"
+};

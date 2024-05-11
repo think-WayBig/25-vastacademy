@@ -73,46 +73,46 @@ app.get('/getTheme/:themeId', async (req, res) => {
     }
 })
 
-app.get('/getThemeFromCategory/:themeCategory', async (req, res) => {
-    let themeCategory = req.params.themeCategory;
-    try {
-        let themes = await Theme.find({ category: themeCategory });
+// app.get('/getThemeFromCategory/:themeCategory', async (req, res) => {
+//     let themeCategory = req.params.themeCategory;
+//     try {
+//         let themes = await Theme.find({ category: themeCategory });
 
-        if (themes === null) {
-            res.send({
-                check: 2,
-                data: `No themes found for category ${themeCategory}`
-            });
-        } else {
-            res.send({
-                check: 1,
-                data: themes
-            });
-        }
-    } catch (error) {
-        res.send({
-            check: 0,
-            error: error.message
-        });
-    }
-});
+//         if (themes === null) {
+//             res.send({
+//                 check: 2,
+//                 data: `No themes found for category ${themeCategory}`
+//             });
+//         } else {
+//             res.send({
+//                 check: 1,
+//                 data: themes
+//             });
+//         }
+//     } catch (error) {
+//         res.send({
+//             check: 0,
+//             error: error.message
+//         });
+//     }
+// });
 
 
 app.post("/newTheme", async (req, res) => {
-    let { id, name, description, category } = req.body;
+    let { id} = req.body;
     try {
         let newTheme = new Theme({
-            id, name, description, category
+            id
         });
         await newTheme.save();
 
         res.send({
-            data: { id, name, description, category },
+            data: { id},
             check: 1
         })
     } catch (error) {
         res.send({
-            data: { id, name, description, category },
+            data: { id },
             check: 0,
             error: error.message
         })

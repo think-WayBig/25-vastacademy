@@ -5,18 +5,6 @@ const newTheme = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    name: {
-        type: String,
-        default: "VATheme"
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    category: {
-        type: Array,
-        required: true
     }
 });
 

@@ -471,6 +471,7 @@ section.outer {
     justify-content: center;
     align-items: center;
     z-index: 99999;
+   
 }
 
 
@@ -478,11 +479,8 @@ section.outer div.all-themes {
     position: relative;
     background-color: white;
     width: 90%;
+    height: 600px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 20px;
     padding: 30px 15px;
     box-sizing: border-box;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -496,13 +494,8 @@ section.outer div.all-themes div.cross-icon {
     cursor: pointer;
 }
 
-section.outer div.all-themes div.theme {
-    width: 350px;
-    height: auto;
-    padding: 15px 15px;
-}
 
-section.outer div.all-themes div.theme h1 {
+/* section.outer div.all-themes div.theme h1 {
     font-size: 35px;
     font-weight: normal;
     margin-bottom: 10px;
@@ -514,7 +507,7 @@ section.outer div.all-themes div.theme p {
     line-height: 1.5;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Show only 2 lines of text */
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
@@ -564,4 +557,4 @@ section.outer div.all-themes div.theme div.select-btns button {
 
 section.outer div.all-themes div.theme div.select-btns button:hover {
     background-color: darkgrey;
-}
+} */
