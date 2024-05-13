@@ -457,107 +457,108 @@ async function generateDynamicComponent2(pro_logo, pro_id, client_name, domain, 
 
         for (let i = 0; i < themesData.length; i++) {
             const themeData = themesData[i];
-        const buttonContainer = document.createElement('div');
-        buttonContainer.classList.add('fixed-buttons');
-        buttonContainer.setAttribute('id', 'buttonContainer');
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('fixed-buttons');
+            buttonContainer.setAttribute('id', 'buttonContainer');
 
-        // Function to open a theme in the popup
-        const openThemeInPopup = (themeURL) => {
-            themeDiv.setAttribute('src', themeURL);
+            // Create buttons for each theme
+            const button1 = document.createElement('button');
+            button1.textContent = 'Theme 1';
+            button1.addEventListener('click', () => {
+                openThemeInPopup('../1/');
+            });
+
+            const button2 = document.createElement('button');
+            button2.textContent = 'Theme 2';
+            button2.addEventListener('click', () => {
+                openThemeInPopup('../2/');
+            });
+
+            const button3 = document.createElement('button');
+            button3.textContent = 'Theme 3';
+            button3.addEventListener('click', () => {
+                openThemeInPopup('../3/');
+            });
+
+            // Append buttons to the button container
+            buttonContainer.appendChild(button1);
+            buttonContainer.appendChild(button2);
+            buttonContainer.appendChild(button3);
+
+            const selectBtn = document.createElement('button');
+            selectBtn.setAttribute('id', 'selectModel');
+            selectBtn.textContent = 'Select This Model';
+            selectBtn.addEventListener('click', () => {
+                const model = document.createElement('div');
+                model.classList.add('modal');
+                model.setAttribute('id', 'modal');
+
+                const para = document.createElement('p');
+                para.textContent = 'Are you sure you want to select this model?';
+
+                let yesBtn = document.createElement('button');
+                yesBtn.setAttribute('id', 'yesButton');
+                yesBtn.textContent = 'Yes';
+                yesBtn.onclick = async () => {
+                    try {
+                        themes[i].selected = 1;
+                        const updatedTheme = await fetch('http://localhost:3000/updateTheme/' + pro_id, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ themes })
+                        });
+
+                        await fetch('http://localhost:3000/updateBtnState/' + pro_id, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    } catch (error) {
+                        console.error(error);
+                    }
+                };
+
+                let noBtn = document.createElement('button');
+                noBtn.setAttribute('id', 'noButton');
+                noBtn.textContent = 'No';
+                noBtn
+                    .addEventListener('click', () => {
+                        model.remove();
+                    });
+
+                model.appendChild(para);
+                model.appendChild(yesBtn);
+                model.appendChild(noBtn);
+
+                document.body.appendChild(model);
+            });
+
+            buttonContainer.appendChild(selectBtn);
+
+            if (i < 1) {
+                // Create iframe for displaying themes
+                const themeDiv = document.createElement('iframe');
+                themeDiv.setAttribute('frameborder', '0');
+                themeDiv.setAttribute('width', '100%');
+                themeDiv.setAttribute('height', '100%');
+                themeDiv.setAttribute('src', initialThemeURL);
+                allThemesDiv.appendChild(themeDiv);
+
+                // Function to open a theme in the popup
+                openThemeInPopup = (themeURL) => {
+                    themeDiv.setAttribute('src', themeURL);
+                };
+            }
+
+            allThemesDiv.appendChild(buttonContainer);
         };
-
-        // Create buttons for each theme
-        const button1 = document.createElement('button');
-        button1.textContent = 'Theme 1';
-        button1.addEventListener('click', () => {
-            openThemeInPopup('../1/');
-        });
-
-        const button2 = document.createElement('button');
-        button2.textContent = 'Theme 2';
-        button2.addEventListener('click', () => {
-            openThemeInPopup('../2/');
-        });
-
-        const button3 = document.createElement('button');
-        button3.textContent = 'Theme 3';
-        button3.addEventListener('click', () => {
-            openThemeInPopup('../3/');
-        });
-
-        // Append buttons to the button container
-        buttonContainer.appendChild(button1);
-        buttonContainer.appendChild(button2);
-        buttonContainer.appendChild(button3);
-
-        const selectBtn = document.createElement('button');
-        selectBtn.setAttribute('id', 'selectModel');
-        selectBtn.textContent = 'Select This Model';
-        selectBtn.addEventListener('click', () => {
-            const model = document.createElement('div');
-            model.classList.add('modal');
-            model.setAttribute('id', 'modal');
-
-            const para = document.createElement('p');
-            para.textContent = 'Are you sure you want to select this model?';
-
-            let yesBtn = document.createElement('button');
-            yesBtn.setAttribute('id', 'yesButton');
-            yesBtn.textContent = 'Yes';
-            yesBtn.onclick = async () => {
-                try {
-                    themes[i].selected = 1;
-                    const updatedTheme = await fetch('http://localhost:3000/updateTheme/' + pro_id, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ themes })
-                    });
-
-                    await fetch('http://localhost:3000/updateBtnState/' + pro_id, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                } catch (error) {
-                    console.error(error);
-                }
-            };
-
-            let noBtn = document.createElement('button');
-            noBtn.setAttribute('id', 'noButton');
-            noBtn.textContent = 'No';
-            noBtn
-                .addEventListener('click', () => {
-                    model.remove();
-                });
-
-            model.appendChild(para);
-            model.appendChild(yesBtn);
-            model.appendChild(noBtn);
-
-            document.body.appendChild(model);
-        });
-
-        buttonContainer.appendChild(selectBtn);
-
-        // Create iframe for displaying themes
-        const themeDiv = document.createElement('iframe');
-        themeDiv.setAttribute('frameborder', '0');
-        themeDiv.setAttribute('width', '100%');
-        themeDiv.setAttribute('height', '100%');
-        themeDiv.setAttribute('src', initialThemeURL);
-        allThemesDiv.appendChild(themeDiv);
-
-    allThemesDiv.appendChild(buttonContainer);
-
-    };
 
         outerSection.appendChild(allThemesDiv);
 
